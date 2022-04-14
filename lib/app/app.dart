@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluuter_boilerplate/application/app_theme/theme_cubit.dart';
+import 'package:fluuter_boilerplate/infrastructure/theme_repo/theme_repo.dart';
+import 'package:fluuter_boilerplate/screens/app_theme/app_theme.dart';
 import 'package:fluuter_boilerplate/screens/home_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -6,9 +10,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+    AddThemeRepository addThemeRepository = AddThemeRepository();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ThemeCubit>(
+          create: (context) =>
+              ThemeCubit(addThemeRepository: addThemeRepository)..getTheme(),
+        )
+      ],
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          if (state is ThemeLoaded) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: HomeScreen(themeValue: state.isDarkValue),
+              theme: state.isDark,
+              themeMode: ThemeMode.system,
+            );
+          }
+          return const SizedBox();
+        },
+      ),
     );
   }
 }

@@ -6,7 +6,6 @@ class ThemeChoice {
   static final ThemeData darkMode = ThemeData(
     primarySwatch: Colors.purple,
     appBarTheme: const AppBarTheme(
-      centerTitle: true,
       elevation: 0.0,
     ),
     brightness: Brightness.dark,
@@ -20,7 +19,6 @@ class ThemeChoice {
     primarySwatch: Colors.pink,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.purple,
-      centerTitle: true,
       elevation: 0.0,
     ),
     brightness: Brightness.light,
