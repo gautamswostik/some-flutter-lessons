@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluuter_boilerplate/application/app_theme/theme_cubit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppTheme extends StatefulWidget {
   const AppTheme({
@@ -13,9 +15,26 @@ class AppTheme extends StatefulWidget {
 }
 
 class _AppThemeState extends State<AppTheme> {
+  _launchInBrowser(String url) async {
+    if (!await launch(
+      url,
+      forceSafariVC: false,
+      forceWebView: false,
+    )) {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await _launchInBrowser(
+              'https://github.com/gautamswostik/some-flutter-lessons/tree/dark-mode');
+        },
+        child: const FaIcon(FontAwesomeIcons.github),
+      ),
       appBar: AppBar(
         title: const Text('Change Theme'),
         actions: [
@@ -36,6 +55,8 @@ class _AppThemeState extends State<AppTheme> {
             return const Text("Fizz");
           } else if (num % 5 == 0) {
             return const Text("Buzz");
+          } else if (num % 15 == 0) {
+            return const Text("FizzBuzz");
           } else {
             return Text("$num");
           }

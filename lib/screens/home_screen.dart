@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluuter_boilerplate/app_setup/lessons/lessons.dart';
 import 'package:fluuter_boilerplate/screens/app_theme/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lessons'),
+        title: const Text('Flutter Components'),
       ),
       body: SingleChildScrollView(
         child: Column(
