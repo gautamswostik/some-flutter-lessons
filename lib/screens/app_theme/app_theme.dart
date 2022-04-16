@@ -51,12 +51,12 @@ class _AppThemeState extends State<AppTheme> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           int num = index + 1;
-          if (num % 3 == 0) {
+          if (num % 3 == 0 && num % 5 == 0) {
+            return const Text("FizzBuzz");
+          } else if (num % 3 == 0) {
             return const Text("Fizz");
           } else if (num % 5 == 0) {
             return const Text("Buzz");
-          } else if (num % 15 == 0) {
-            return const Text("FizzBuzz");
           } else {
             return Text("$num");
           }

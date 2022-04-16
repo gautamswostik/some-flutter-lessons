@@ -8,9 +8,11 @@ abstract class IAddThemeRepository {
 }
 
 class AddThemeRepository extends IAddThemeRepository {
+  AddThemeRepository({required this.hive});
+  final HiveInterface hive;
   @override
   Future<void> addTheme(bool isDark) async {
-    final themeBox = await Hive.openBox(HiveBox.themeBox);
+    final themeBox = await Hive.openBox<bool>(HiveBox.themeBox);
     await themeBox.put('theme', isDark);
   }
 

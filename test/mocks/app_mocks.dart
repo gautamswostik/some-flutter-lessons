@@ -7,5 +7,6 @@ import 'package:mockito/annotations.dart';
   ThemeCubit,
   HiveInterface,
   AddThemeRepository,
+  Box,
 ])
 void main() {}
