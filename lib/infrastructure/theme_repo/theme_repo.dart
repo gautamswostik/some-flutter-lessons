@@ -12,14 +12,23 @@ class AddThemeRepository extends IAddThemeRepository {
   final HiveInterface hive;
   @override
   Future<void> addTheme(bool isDark) async {
-    final themeBox = await Hive.openBox<bool>(HiveBox.themeBox);
+    final themeBox = await hive.openBox<bool>(HiveBox.themeBox);
     await themeBox.put('theme', isDark);
   }
 
   @override
   Future<bool> getSavedTheme() async {
-    final themeBox = await Hive.openBox(HiveBox.themeBox);
+    final themeBox = await _openBox(HiveBox.themeBox);
     bool theme = await themeBox.get('theme', defaultValue: false);
     return theme;
+  }
+
+  Future<Box> _openBox(String type) async {
+    try {
+      final box = await hive.openBox(type);
+      return box;
+    } catch (e) {
+      throw Exception();
+    }
   }
 }
