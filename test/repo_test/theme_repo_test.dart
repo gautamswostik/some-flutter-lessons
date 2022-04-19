@@ -11,7 +11,7 @@ void main() {
   group(
     'Testing Theme Repository',
     () {
-      late AddThemeRepository hiveMovieSearchRepo;
+      late AddThemeRepository addThemeRepository;
 
       late HiveInterface mockHive;
       late Box<bool> mockBox;
@@ -19,7 +19,7 @@ void main() {
         () async {
           mockHive = MockHiveInterface();
           mockBox = MockBox();
-          hiveMovieSearchRepo = AddThemeRepository(hive: mockHive);
+          addThemeRepository = AddThemeRepository(hive: mockHive);
 
           await HiveSetup.initHive();
         },
@@ -30,7 +30,7 @@ void main() {
         when(mockHive.openBox<bool>(HiveBox.themeBox))
             .thenAnswer((_) async => mockBox);
         //act
-        await hiveMovieSearchRepo.addTheme(true);
+        await addThemeRepository.addTheme(true);
         //assert
         verify(mockBox.put('theme', true));
         verify(mockHive.openBox<bool>(HiveBox.themeBox));
@@ -42,7 +42,7 @@ void main() {
             .thenAnswer((_) async => mockBox);
         when(mockBox.get('theme', defaultValue: false)).thenAnswer((_) => true);
         //act
-        final result = await hiveMovieSearchRepo.getSavedTheme();
+        final result = await addThemeRepository.getSavedTheme();
         //assert
         expect(result, true);
         verify(mockHive.openBox<bool>(HiveBox.themeBox));

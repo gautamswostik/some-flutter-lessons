@@ -9,7 +9,7 @@ part 'theme_state.dart';
 class ThemeCubit extends Cubit<ThemeState> {
   final AddThemeRepository addThemeRepository;
   ThemeCubit({required this.addThemeRepository}) : super(ThemeInitial());
-  void toggleTheme(bool isDark) async {
+  void toggleTheme(bool isDark) {
     addThemeRepository.addTheme(isDark);
     if (isDark) {
       emit(ThemeLoaded(
