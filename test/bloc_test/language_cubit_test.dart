@@ -2,10 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fluuter_boilerplate/app_setup/hive/hive_setup.dart';
-import 'package:fluuter_boilerplate/app_setup/languages/entity/language_entity.dart';
 import 'package:fluuter_boilerplate/app_setup/languages/languages.dart';
-import 'package:fluuter_boilerplate/app_setup/theme/theme_choices.dart';
-import 'package:fluuter_boilerplate/application/app_theme/theme_cubit.dart';
 import 'package:fluuter_boilerplate/application/languages/language_cubit.dart';
 import 'package:fluuter_boilerplate/infrastructure/language_repo/language_repo.dart';
 import 'package:mockito/mockito.dart';
@@ -18,11 +15,11 @@ void main() {
     () {
       late LanguageCubit mockLanguageCubit;
       late LanguageRepository mockLanguageRepository;
-      late LanguageEntity mockLanguageEntity;
+
       setUp(() async {
         mockLanguageCubit = MockLanguageCubit();
         mockLanguageRepository = MockLanguageRepository();
-        mockLanguageEntity = MockLanguageEntity();
+
         await HiveSetup.initHive();
       });
 
