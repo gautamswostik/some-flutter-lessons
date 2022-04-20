@@ -41,6 +41,7 @@ dependencies:
   url_launcher: ^6.0.20
   flutter_localizations:
     sdk: flutter
+  image_picker: ^0.8.5
 
 dev_dependencies:
   flutter_test:
