@@ -20,7 +20,7 @@ class LanguageRepository extends IAddLanguageRepository {
   @override
   Future<String> getSavedLanguage() async {
     final languageBox = await hive.openBox(HiveBox.languageBox);
-    String entity = languageBox.get('language');
-    return entity;
+    String language = await languageBox.get('language', defaultValue: 'en');
+    return language;
   }
 }

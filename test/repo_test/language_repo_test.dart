@@ -40,13 +40,14 @@ void main() {
           //arange
           when(mockHive.openBox(HiveBox.languageBox))
               .thenAnswer((_) async => mockBox);
-          when(mockBox.get('language')).thenAnswer((_) => 'en');
+          when(mockBox.get('language', defaultValue: 'en'))
+              .thenAnswer((_) => 'en');
           //act
           final result = await languageRepository.getSavedLanguage();
           //assert
           expect(result, 'en');
           verify(mockHive.openBox(HiveBox.languageBox));
-          verify(mockBox.get('language'));
+          verify(mockBox.get('language', defaultValue: 'en'));
         },
       );
     },
