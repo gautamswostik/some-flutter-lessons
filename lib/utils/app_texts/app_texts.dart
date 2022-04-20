@@ -1,5 +1,6 @@
 class AppTexts {
   const AppTexts();
+  static const String mainTitle = 'Flutter Components';
   static const String darkMode = 'Dark Mode';
   static const String localization = 'Localization';
 
