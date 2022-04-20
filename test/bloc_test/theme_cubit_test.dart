@@ -42,6 +42,7 @@ void main() {
           mockThemeCubit.toggleTheme(true);
         },
       );
+      
       blocTest<ThemeCubit, ThemeState>(
         "Should return ThemeLoaded State",
         setUp: () {

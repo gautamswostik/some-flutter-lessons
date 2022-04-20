@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluuter_boilerplate/application/app_theme/theme_cubit.dart';
+import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
+import 'package:fluuter_boilerplate/utils/app_texts/gitbub_links.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -30,13 +32,12 @@ class _AppThemeState extends State<AppTheme> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await _launchInBrowser(
-              'https://github.com/gautamswostik/some-flutter-lessons/tree/dark-mode');
+          await _launchInBrowser(GithubLinks.darkModeBranch);
         },
         child: const FaIcon(FontAwesomeIcons.github),
       ),
       appBar: AppBar(
-        title: const Text('Change Theme'),
+        title: const Text(AppTexts.darkModeAppTitle),
         actions: [
           Switch(
             value: widget.themeValue,
@@ -52,11 +53,11 @@ class _AppThemeState extends State<AppTheme> {
         itemBuilder: (context, index) {
           int num = index + 1;
           if (num % 3 == 0 && num % 5 == 0) {
-            return const Text("FizzBuzz");
+            return const Text(AppTexts.fizzBuzz);
           } else if (num % 3 == 0) {
-            return const Text("Fizz");
+            return const Text(AppTexts.fizz);
           } else if (num % 5 == 0) {
-            return const Text("Buzz");
+            return const Text(AppTexts.buzz);
           } else {
             return Text("$num");
           }

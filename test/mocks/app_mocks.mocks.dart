@@ -2,16 +2,22 @@
 // in fluuter_boilerplate/test/mocks/app_mocks.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i5;
-import 'dart:typed_data' as _i9;
+import 'dart:async' as _i7;
+import 'dart:typed_data' as _i11;
 
-import 'package:bloc/bloc.dart' as _i6;
+import 'package:bloc/bloc.dart' as _i8;
+import 'package:fluuter_boilerplate/app_setup/languages/entity/language_entity.dart'
+    as _i12;
 import 'package:fluuter_boilerplate/application/app_theme/theme_cubit.dart'
     as _i3;
+import 'package:fluuter_boilerplate/application/languages/language_cubit.dart'
+    as _i6;
+import 'package:fluuter_boilerplate/infrastructure/language_repo/language_repo.dart'
+    as _i5;
 import 'package:fluuter_boilerplate/infrastructure/theme_repo/theme_repo.dart'
     as _i2;
-import 'package:hive/src/box/default_compaction_strategy.dart' as _i8;
-import 'package:hive/src/box/default_key_comparator.dart' as _i7;
+import 'package:hive/src/box/default_compaction_strategy.dart' as _i10;
+import 'package:hive/src/box/default_key_comparator.dart' as _i9;
 import 'package:hive_flutter/hive_flutter.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -36,6 +42,11 @@ class _FakeLazyBox_3<E> extends _i1.Fake implements _i4.LazyBox<E> {}
 
 class _FakeHiveInterface_4 extends _i1.Fake implements _i4.HiveInterface {}
 
+class _FakeLanguageRepository_5 extends _i1.Fake
+    implements _i5.LanguageRepository {}
+
+class _FakeLanguageState_6 extends _i1.Fake implements _i6.LanguageState {}
+
 /// A class which mocks [ThemeCubit].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -52,10 +63,10 @@ class MockThemeCubit extends _i1.Mock implements _i3.ThemeCubit {
   _i3.ThemeState get state => (super.noSuchMethod(Invocation.getter(#state),
       returnValue: _FakeThemeState_1()) as _i3.ThemeState);
   @override
-  _i5.Stream<_i3.ThemeState> get stream =>
+  _i7.Stream<_i3.ThemeState> get stream =>
       (super.noSuchMethod(Invocation.getter(#stream),
               returnValue: Stream<_i3.ThemeState>.empty())
-          as _i5.Stream<_i3.ThemeState>);
+          as _i7.Stream<_i3.ThemeState>);
   @override
   bool get isClosed =>
       (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
@@ -72,7 +83,7 @@ class MockThemeCubit extends _i1.Mock implements _i3.ThemeCubit {
       super.noSuchMethod(Invocation.method(#emit, [state]),
           returnValueForMissingStub: null);
   @override
-  void onChange(_i6.Change<_i3.ThemeState>? change) =>
+  void onChange(_i8.Change<_i3.ThemeState>? change) =>
       super.noSuchMethod(Invocation.method(#onChange, [change]),
           returnValueForMissingStub: null);
   @override
@@ -84,9 +95,9 @@ class MockThemeCubit extends _i1.Mock implements _i3.ThemeCubit {
       super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]),
           returnValueForMissingStub: null);
   @override
-  _i5.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
+  _i7.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
 }
 
 /// A class which mocks [HiveInterface].
@@ -102,14 +113,14 @@ class MockHiveInterface extends _i1.Mock implements _i4.HiveInterface {
       super.noSuchMethod(Invocation.method(#init, [path]),
           returnValueForMissingStub: null);
   @override
-  _i5.Future<_i4.Box<E>> openBox<E>(String? name,
+  _i7.Future<_i4.Box<E>> openBox<E>(String? name,
           {_i4.HiveCipher? encryptionCipher,
-          _i4.KeyComparator? keyComparator = _i7.defaultKeyComparator,
+          _i4.KeyComparator? keyComparator = _i9.defaultKeyComparator,
           _i4.CompactionStrategy? compactionStrategy =
-              _i8.defaultCompactionStrategy,
+              _i10.defaultCompactionStrategy,
           bool? crashRecovery = true,
           String? path,
-          _i9.Uint8List? bytes,
+          _i11.Uint8List? bytes,
           List<int>? encryptionKey}) =>
       (super.noSuchMethod(
               Invocation.method(#openBox, [
@@ -124,13 +135,13 @@ class MockHiveInterface extends _i1.Mock implements _i4.HiveInterface {
                 #encryptionKey: encryptionKey
               }),
               returnValue: Future<_i4.Box<E>>.value(_FakeBox_2<E>()))
-          as _i5.Future<_i4.Box<E>>);
+          as _i7.Future<_i4.Box<E>>);
   @override
-  _i5.Future<_i4.LazyBox<E>> openLazyBox<E>(String? name,
+  _i7.Future<_i4.LazyBox<E>> openLazyBox<E>(String? name,
           {_i4.HiveCipher? encryptionCipher,
-          _i4.KeyComparator? keyComparator = _i7.defaultKeyComparator,
+          _i4.KeyComparator? keyComparator = _i9.defaultKeyComparator,
           _i4.CompactionStrategy? compactionStrategy =
-              _i8.defaultCompactionStrategy,
+              _i10.defaultCompactionStrategy,
           bool? crashRecovery = true,
           String? path,
           List<int>? encryptionKey}) =>
@@ -146,7 +157,7 @@ class MockHiveInterface extends _i1.Mock implements _i4.HiveInterface {
                 #encryptionKey: encryptionKey
               }),
               returnValue: Future<_i4.LazyBox<E>>.value(_FakeLazyBox_3<E>()))
-          as _i5.Future<_i4.LazyBox<E>>);
+          as _i7.Future<_i4.LazyBox<E>>);
   @override
   _i4.Box<E> box<E>(String? name) =>
       (super.noSuchMethod(Invocation.method(#box, [name]),
@@ -160,28 +171,28 @@ class MockHiveInterface extends _i1.Mock implements _i4.HiveInterface {
       (super.noSuchMethod(Invocation.method(#isBoxOpen, [name]),
           returnValue: false) as bool);
   @override
-  _i5.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
+  _i7.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
-  _i5.Future<void> deleteBoxFromDisk(String? name, {String? path}) =>
+  _i7.Future<void> deleteBoxFromDisk(String? name, {String? path}) =>
       (super.noSuchMethod(
           Invocation.method(#deleteBoxFromDisk, [name], {#path: path}),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
-  _i5.Future<void> deleteFromDisk() =>
+  _i7.Future<void> deleteFromDisk() =>
       (super.noSuchMethod(Invocation.method(#deleteFromDisk, []),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
   List<int> generateSecureKey() =>
       (super.noSuchMethod(Invocation.method(#generateSecureKey, []),
           returnValue: <int>[]) as List<int>);
   @override
-  _i5.Future<bool> boxExists(String? name, {String? path}) =>
+  _i7.Future<bool> boxExists(String? name, {String? path}) =>
       (super.noSuchMethod(Invocation.method(#boxExists, [name], {#path: path}),
-          returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
+          returnValue: Future<bool>.value(false)) as _i7.Future<bool>);
   @override
   void registerAdapter<T>(_i4.TypeAdapter<T>? adapter,
           {bool? internal = false, bool? override = false}) =>
@@ -212,14 +223,14 @@ class MockAddThemeRepository extends _i1.Mock
   _i4.HiveInterface get hive => (super.noSuchMethod(Invocation.getter(#hive),
       returnValue: _FakeHiveInterface_4()) as _i4.HiveInterface);
   @override
-  _i5.Future<void> addTheme(bool? isDark) =>
+  _i7.Future<void> addTheme(bool? isDark) =>
       (super.noSuchMethod(Invocation.method(#addTheme, [isDark]),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
-  _i5.Future<bool> getSavedTheme() =>
+  _i7.Future<bool> getSavedTheme() =>
       (super.noSuchMethod(Invocation.method(#getSavedTheme, []),
-          returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
+          returnValue: Future<bool>.value(false)) as _i7.Future<bool>);
 }
 
 /// A class which mocks [Box].
@@ -276,71 +287,169 @@ class MockBox<E> extends _i1.Mock implements _i4.Box<E> {
   dynamic keyAt(int? index) =>
       super.noSuchMethod(Invocation.method(#keyAt, [index]));
   @override
-  _i5.Stream<_i4.BoxEvent> watch({dynamic key}) => (super.noSuchMethod(
+  _i7.Stream<_i4.BoxEvent> watch({dynamic key}) => (super.noSuchMethod(
       Invocation.method(#watch, [], {#key: key}),
-      returnValue: Stream<_i4.BoxEvent>.empty()) as _i5.Stream<_i4.BoxEvent>);
+      returnValue: Stream<_i4.BoxEvent>.empty()) as _i7.Stream<_i4.BoxEvent>);
   @override
   bool containsKey(dynamic key) =>
       (super.noSuchMethod(Invocation.method(#containsKey, [key]),
           returnValue: false) as bool);
   @override
-  _i5.Future<void> put(dynamic key, E? value) =>
+  _i7.Future<void> put(dynamic key, E? value) =>
       (super.noSuchMethod(Invocation.method(#put, [key, value]),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
-  _i5.Future<void> putAt(int? index, E? value) =>
+  _i7.Future<void> putAt(int? index, E? value) =>
       (super.noSuchMethod(Invocation.method(#putAt, [index, value]),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
-  _i5.Future<void> putAll(Map<dynamic, E>? entries) =>
+  _i7.Future<void> putAll(Map<dynamic, E>? entries) =>
       (super.noSuchMethod(Invocation.method(#putAll, [entries]),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
-  _i5.Future<int> add(E? value) =>
+  _i7.Future<int> add(E? value) =>
       (super.noSuchMethod(Invocation.method(#add, [value]),
-          returnValue: Future<int>.value(0)) as _i5.Future<int>);
+          returnValue: Future<int>.value(0)) as _i7.Future<int>);
   @override
-  _i5.Future<Iterable<int>> addAll(Iterable<E>? values) =>
+  _i7.Future<Iterable<int>> addAll(Iterable<E>? values) =>
       (super.noSuchMethod(Invocation.method(#addAll, [values]),
               returnValue: Future<Iterable<int>>.value(<int>[]))
-          as _i5.Future<Iterable<int>>);
+          as _i7.Future<Iterable<int>>);
   @override
-  _i5.Future<void> delete(dynamic key) =>
+  _i7.Future<void> delete(dynamic key) =>
       (super.noSuchMethod(Invocation.method(#delete, [key]),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
-  _i5.Future<void> deleteAt(int? index) =>
+  _i7.Future<void> deleteAt(int? index) =>
       (super.noSuchMethod(Invocation.method(#deleteAt, [index]),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
-  _i5.Future<void> deleteAll(Iterable<dynamic>? keys) =>
+  _i7.Future<void> deleteAll(Iterable<dynamic>? keys) =>
       (super.noSuchMethod(Invocation.method(#deleteAll, [keys]),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
-  _i5.Future<void> compact() =>
+  _i7.Future<void> compact() =>
       (super.noSuchMethod(Invocation.method(#compact, []),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
-  _i5.Future<int> clear() => (super.noSuchMethod(Invocation.method(#clear, []),
-      returnValue: Future<int>.value(0)) as _i5.Future<int>);
+  _i7.Future<int> clear() => (super.noSuchMethod(Invocation.method(#clear, []),
+      returnValue: Future<int>.value(0)) as _i7.Future<int>);
   @override
-  _i5.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
+  _i7.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
-  _i5.Future<void> deleteFromDisk() =>
+  _i7.Future<void> deleteFromDisk() =>
       (super.noSuchMethod(Invocation.method(#deleteFromDisk, []),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
   @override
-  _i5.Future<void> flush() => (super.noSuchMethod(Invocation.method(#flush, []),
+  _i7.Future<void> flush() => (super.noSuchMethod(Invocation.method(#flush, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
+}
+
+/// A class which mocks [LanguageCubit].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLanguageCubit extends _i1.Mock implements _i6.LanguageCubit {
+  MockLanguageCubit() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.LanguageRepository get languageRepository =>
+      (super.noSuchMethod(Invocation.getter(#languageRepository),
+          returnValue: _FakeLanguageRepository_5()) as _i5.LanguageRepository);
+  @override
+  _i6.LanguageState get state => (super.noSuchMethod(Invocation.getter(#state),
+      returnValue: _FakeLanguageState_6()) as _i6.LanguageState);
+  @override
+  _i7.Stream<_i6.LanguageState> get stream =>
+      (super.noSuchMethod(Invocation.getter(#stream),
+              returnValue: Stream<_i6.LanguageState>.empty())
+          as _i7.Stream<_i6.LanguageState>);
+  @override
+  bool get isClosed =>
+      (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
+          as bool);
+  @override
+  void toggle(String? languageCode) =>
+      super.noSuchMethod(Invocation.method(#toggle, [languageCode]),
+          returnValueForMissingStub: null);
+  @override
+  void getLang() => super.noSuchMethod(Invocation.method(#getLang, []),
+      returnValueForMissingStub: null);
+  @override
+  void emit(_i6.LanguageState? state) =>
+      super.noSuchMethod(Invocation.method(#emit, [state]),
+          returnValueForMissingStub: null);
+  @override
+  void onChange(_i8.Change<_i6.LanguageState>? change) =>
+      super.noSuchMethod(Invocation.method(#onChange, [change]),
+          returnValueForMissingStub: null);
+  @override
+  void addError(Object? error, [StackTrace? stackTrace]) =>
+      super.noSuchMethod(Invocation.method(#addError, [error, stackTrace]),
+          returnValueForMissingStub: null);
+  @override
+  void onError(Object? error, StackTrace? stackTrace) =>
+      super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]),
+          returnValueForMissingStub: null);
+  @override
+  _i7.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
+}
+
+/// A class which mocks [LanguageRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLanguageRepository extends _i1.Mock
+    implements _i5.LanguageRepository {
+  MockLanguageRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.HiveInterface get hive => (super.noSuchMethod(Invocation.getter(#hive),
+      returnValue: _FakeHiveInterface_4()) as _i4.HiveInterface);
+  @override
+  _i7.Future<void> addLanguage(String? languageCode) =>
+      (super.noSuchMethod(Invocation.method(#addLanguage, [languageCode]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
+  @override
+  _i7.Future<String> getSavedLanguage() =>
+      (super.noSuchMethod(Invocation.method(#getSavedLanguage, []),
+          returnValue: Future<String>.value('')) as _i7.Future<String>);
+}
+
+/// A class which mocks [LanguageEntity].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLanguageEntity extends _i1.Mock implements _i12.LanguageEntity {
+  MockLanguageEntity() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get languageCode =>
+      (super.noSuchMethod(Invocation.getter(#languageCode), returnValue: '')
+          as String);
+  @override
+  String get languageName =>
+      (super.noSuchMethod(Invocation.getter(#languageName), returnValue: '')
+          as String);
+  @override
+  List<Object?> get props =>
+      (super.noSuchMethod(Invocation.getter(#props), returnValue: <Object?>[])
+          as List<Object?>);
 }
