@@ -1,7 +1,9 @@
 class AppTexts {
   const AppTexts();
+  // HomeScreen Names
   static const String darkMode = 'Dark Mode';
   static const String localization = 'Localization';
+  static const String imagePicker = 'Image Picker';
 
   static const String darkModeAppTitle = 'Change Theme';
 
