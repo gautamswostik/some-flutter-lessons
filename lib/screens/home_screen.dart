@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await launchInBrowser(GithubLinks.githumLink);
+          await launchInBrowser(GithubLinks.githubLink);
         },
         child: const FaIcon(FontAwesomeIcons.github),
       ),
