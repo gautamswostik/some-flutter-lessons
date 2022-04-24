@@ -5,6 +5,7 @@ class AppTexts {
   static const String darkMode = 'Dark Mode';
   static const String localization = 'Localization';
   static const String imagePicker = 'Image and Video Picker';
+  static const String videoPlayer = 'Video Player';
 
   static const String darkModeAppTitle = 'Change Theme';
 

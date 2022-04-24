@@ -46,7 +46,7 @@ class _ImageAndVideoPickerState extends State<ImageAndVideoPicker> {
     }
   }
 
-  _pickeVideo() async {
+  _pickVideo() async {
     try {
       final XFile? pickedFile =
           await _picker.pickVideo(source: ImageSource.gallery);
@@ -131,7 +131,7 @@ class _ImageAndVideoPickerState extends State<ImageAndVideoPicker> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      await _pickeVideo();
+                      await _pickVideo();
                     },
                     child: Text(AppTexts.chooseVideo.translateTo(context)),
                   ),

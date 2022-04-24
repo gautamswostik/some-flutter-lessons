@@ -14,6 +14,7 @@ class ThemeChoice {
       buttonColor: Colors.amber,
       disabledColor: Colors.black,
     ),
+    tabBarTheme: TabBarTheme(labelColor: Colors.white),
   );
   static final ThemeData lightMode = ThemeData(
     primarySwatch: Colors.pink,
@@ -26,6 +27,9 @@ class ThemeChoice {
     buttonTheme: const ButtonThemeData(
       buttonColor: Colors.pinkAccent,
       disabledColor: Colors.white,
+    ),
+    tabBarTheme: const TabBarTheme(
+      labelColor: Colors.white,
     ),
   );
 }
