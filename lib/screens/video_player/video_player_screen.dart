@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
+import 'package:fluuter_boilerplate/utils/app_texts/gitbub_links.dart';
+import 'package:fluuter_boilerplate/utils/extensions/functions.dart';
 import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:io';
@@ -13,12 +16,17 @@ class VideoPlayerScreen extends StatefulWidget {
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
-  double sliderValue = 0.3;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            await launchInBrowser(GithubLinks.videoPlayerBranch);
+          },
+          child: const FaIcon(FontAwesomeIcons.github),
+        ),
         appBar: AppBar(
           title: Text(AppTexts.videoPlayer.translateTo(context)),
           bottom: const TabBar(
