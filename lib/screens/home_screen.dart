@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluuter_boilerplate/screens/app_theme/app_theme_screen.dart';
 import 'package:fluuter_boilerplate/screens/image_picker/image_picker_screen.dart';
 import 'package:fluuter_boilerplate/screens/localization/app_language_screen.dart';
+import 'package:fluuter_boilerplate/screens/video_player/video_player_screen.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/gitbub_links.dart';
 import 'package:fluuter_boilerplate/utils/extensions/functions.dart';
@@ -66,6 +67,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => const ImageAndVideoPicker(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: Image.asset('assets/images/video_player.png'),
+                title: Text(AppTexts.videoPlayer.translateTo(context)),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const VideoPlayerScreen(),
                     ),
                   );
                 },
