@@ -29,13 +29,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         ),
         appBar: AppBar(
           title: Text(AppTexts.videoPlayer.translateTo(context)),
-          bottom: const TabBar(
+          bottom: TabBar(
             tabs: [
               Tab(
-                text: 'Network Video',
+                text: AppTexts.networkVideo.translateTo(context),
               ),
               Tab(
-                text: 'File Video',
+                text: AppTexts.fileVideo.translateTo(context),
               ),
             ],
           ),
