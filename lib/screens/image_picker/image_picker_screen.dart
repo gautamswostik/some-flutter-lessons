@@ -107,7 +107,7 @@ class _ImageAndVideoPickerState extends State<ImageAndVideoPicker> {
                 spacing: 10,
                 children: _videos
                     .map(
-                      (e) => Text(e.path),
+                      (e) => Text(e.name),
                     )
                     .toList(),
               ),

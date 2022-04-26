@@ -22,4 +22,5 @@ class AppTexts {
 
   static const String networkVideo = 'Network Video';
   static const String fileVideo = 'File Video';
+  static const String deviceVideo = 'Device Video';
 }
