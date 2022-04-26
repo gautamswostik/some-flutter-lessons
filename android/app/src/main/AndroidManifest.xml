@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fluuter_boilerplate">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACTION_MANAGE_ALL_FILES_PERMISSION"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
    <application
+        android:requestLegacyExternalStorage="true"
         android:label="fluuter_boilerplate"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

@@ -17,4 +17,10 @@ class AppTexts {
   static const String chooseImage = 'Choose Image';
   static const String chooseMultipleImage = 'Choose Multiple Image';
   static const String chooseVideo = 'Choose Video';
+
+  //video player texts
+
+  static const String networkVideo = 'Network Video';
+  static const String fileVideo = 'File Video';
+  static const String deviceVideo = 'Device Video';
 }
