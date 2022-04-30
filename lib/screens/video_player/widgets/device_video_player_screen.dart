@@ -30,7 +30,6 @@ class _StorageVideoPlayerState extends State<StorageVideoPlayer> {
       if (_controller.value.position == _controller.value.duration) {
         setState(() {
           !_controller.value.isPlaying;
-          Navigator.of(context).pop();
         });
       }
     });
@@ -70,7 +69,7 @@ class _StorageVideoPlayerState extends State<StorageVideoPlayer> {
                             ? Icons.pause
                             : Icons.play_arrow,
                         size: 30,
-                      ),
+                      ), 
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(10),
