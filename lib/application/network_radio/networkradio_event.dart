@@ -7,6 +7,12 @@ abstract class NetworkrAudioEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class PlayNetworkAudio extends NetworkrAudioEvent {}
+class PlayNetworkAudio extends NetworkrAudioEvent {
+  final bool isInitial;
+
+  const PlayNetworkAudio({required this.isInitial});
+  @override
+  List<Object> get props => [isInitial];
+}
 
 class PauseNetworkAudio extends NetworkrAudioEvent {}

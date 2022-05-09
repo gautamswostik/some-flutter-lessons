@@ -12,15 +12,18 @@ class NetworkAudioBloc extends Bloc<NetworkrAudioEvent, NetworkAudioState> {
   NetworkAudioBloc({
     required this.audioPlayer,
     required this.audioCache,
-  }) : super(NetworkAudioPaused()) {
+  }) : super(const NetworkAudioPaused(
+          getDuration: 0,
+        )) {
     on<NetworkrAudioEvent>((event, emit) {});
-    on<PlayNetworkAudio>((event, emit) {
+    on<PlayNetworkAudio>((event, emit) async {
+      int getDuration = await audioPlayer.getDuration();
       emit(NetworkAudioLoading());
       if (audioPlayer.state == PlayerState.PAUSED) {
         audioPlayer.resume();
         emit(NetworkAudioPlaying(
           audioPlayer: audioPlayer,
-          audioPlayerStateStream: audioPlayer.onAudioPositionChanged,
+          onAudioPositionChanged: audioPlayer.onAudioPositionChanged,
           getCurrentPosition: audioPlayer.getCurrentPosition(),
         ));
       } else if (audioPlayer.state == PlayerState.STOPPED) {
@@ -29,12 +32,15 @@ class NetworkAudioBloc extends Bloc<NetworkrAudioEvent, NetworkAudioState> {
         );
         emit(NetworkAudioPlaying(
           audioPlayer: audioPlayer,
-          audioPlayerStateStream: audioPlayer.onAudioPositionChanged,
+          onAudioPositionChanged: audioPlayer.onAudioPositionChanged,
           getCurrentPosition: audioPlayer.getCurrentPosition(),
         ));
       } else if (audioPlayer.state == PlayerState.PLAYING) {
         audioPlayer.pause();
-        emit(NetworkAudioPaused());
+
+        emit(NetworkAudioPaused(
+          getDuration: getDuration,
+        ));
       }
     });
   }

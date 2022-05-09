@@ -13,16 +13,23 @@ class NetworkAudioLoading extends NetworkAudioState {}
 
 class NetworkAudioPlaying extends NetworkAudioState {
   final AudioPlayer audioPlayer;
-  final Stream<Duration> audioPlayerStateStream;
-  final Future<int> getCurrentPosition; 
+  final Stream<Duration> onAudioPositionChanged;
+  final Future<int> getCurrentPosition;
   const NetworkAudioPlaying({
     required this.audioPlayer,
-    required this.audioPlayerStateStream,
-    required this.getCurrentPosition
+    required this.onAudioPositionChanged,
+    required this.getCurrentPosition,
   });
 
   @override
-  List<Object> get props => [audioPlayerStateStream];
+  List<Object> get props => [onAudioPositionChanged];
 }
 
-class NetworkAudioPaused extends NetworkAudioState {}
+class NetworkAudioPaused extends NetworkAudioState {
+  final int getDuration;
+
+  const NetworkAudioPaused({required this.getDuration});
+
+  @override
+  List<Object> get props => [getDuration];
+}
