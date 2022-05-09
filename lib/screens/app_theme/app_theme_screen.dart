@@ -4,8 +4,8 @@ import 'package:fluuter_boilerplate/application/app_theme/theme_cubit.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/gitbub_links.dart';
 import 'package:fluuter_boilerplate/utils/extensions/functions.dart';
+import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AppTheme extends StatefulWidget {
   const AppTheme({
@@ -28,7 +28,7 @@ class _AppThemeState extends State<AppTheme> {
         child: const FaIcon(FontAwesomeIcons.github),
       ),
       appBar: AppBar(
-        title: const Text(AppTexts.darkModeAppTitle),
+        title: Text(AppTexts.darkModeAppTitle.translateTo(context)),
         actions: [
           Switch(
             value: widget.themeValue,

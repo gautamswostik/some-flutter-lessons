@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluuter_boilerplate/screens/audio_player/widgets/network_audio_player.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
 import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
 
@@ -36,7 +37,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
         body: TabBarView(
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            Container(),
+            const NetworkAudioPlayer(),
             Container(),
             Container(),
           ],
