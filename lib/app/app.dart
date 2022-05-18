@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     AddThemeRepository addThemeRepository = AddThemeRepository(hive: Hive);
     LanguageRepository languageRepository = LanguageRepository(hive: Hive);
     AudioPlayer audioPlayer = AudioPlayer();
-    AudioCache audioCache = AudioCache(fixedPlayer: audioPlayer);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider<ThemeCubit>(
@@ -34,7 +34,6 @@ class MyApp extends StatelessWidget {
         BlocProvider<NetworkAudioBloc>(
           create: (context) => NetworkAudioBloc(
             audioPlayer: audioPlayer,
-            audioCache: audioCache,
           ),
         ),
       ],

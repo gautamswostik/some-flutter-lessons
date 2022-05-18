@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluuter_boilerplate/application/network_radio/networkradio_bloc.dart';
 import 'package:fluuter_boilerplate/screens/audio_player/widgets/network_audio_player.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
 import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
@@ -11,36 +13,61 @@ class AudioPlayerScreen extends StatefulWidget {
 }
 
 class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
+  static final List<Widget> _widgetOptions = <Widget>[
+    const NetworkAudioPlayer(),
+    const SizedBox(),
+    Container(),
+  ];
+
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if (index == 1 || index == 2) {
+        BlocProvider.of<NetworkAudioBloc>(context).add(StopNetworkAudio());
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            AppTexts.audioPlayer.translateTo(context),
-          ),
-          bottom: TabBar(
-            tabs: [
-              Tab(
-                text: AppTexts.networkAudio.translateTo(context),
+    return WillPopScope(
+      onWillPop: () async {
+        BlocProvider.of<NetworkAudioBloc>(context).add(StopNetworkAudio());
+        return true;
+      },
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          bottomNavigationBar: BottomNavigationBar(
+            showSelectedLabels: true,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.info_outline),
+                label: AppTexts.networkAudio.translateTo(context),
               ),
-              Tab(
-                text: AppTexts.fileAudio.translateTo(context),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.list),
+                label: AppTexts.asserAudio.translateTo(context),
               ),
-              Tab(
-                text: AppTexts.deviceAudio.translateTo(context),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.book),
+                label: AppTexts.deviceAudio.translateTo(context),
               ),
             ],
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
           ),
-        ),
-        body: TabBarView(
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            const NetworkAudioPlayer(),
-            Container(),
-            Container(),
-          ],
+          appBar: AppBar(
+            title: Text(
+              AppTexts.audioPlayer.translateTo(context),
+            ),
+          ),
+          body: Center(
+            child: _widgetOptions.elementAt(_selectedIndex),
+          ),
         ),
       ),
     );

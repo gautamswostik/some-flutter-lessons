@@ -26,6 +26,6 @@ class AppTexts {
   static const String deviceVideo = 'Device Video';
 
   static const String networkAudio = 'Network Audio';
-  static const String fileAudio = 'File Audio';
+  static const String asserAudio = 'Asset Audio';
   static const String deviceAudio = 'Device Audio';
 }

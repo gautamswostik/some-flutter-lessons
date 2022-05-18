@@ -41,7 +41,8 @@ class _NetworkAudioPlayerState extends State<NetworkAudioPlayer> {
             child: BlocBuilder<NetworkAudioBloc, NetworkAudioState>(
               builder: (context, state) {
                 if (state is NetworkAudioPlaying) {
-                  state.onAudioPositionChanged.listen((currentPosition) {
+                  state.audioPlayer.onAudioPositionChanged
+                      .listen((currentPosition) {
                     setState(() {
                       position = currentPosition;
                     });
@@ -53,7 +54,6 @@ class _NetworkAudioPlayerState extends State<NetworkAudioPlayer> {
                   );
                 }
 
-                
                 return Column(
                   children: [
                     Text(position.toString()),
@@ -77,18 +77,14 @@ class _NetworkAudioPlayerState extends State<NetworkAudioPlayer> {
                       ),
                       onPressed: () async {
                         BlocProvider.of<NetworkAudioBloc>(context).add(
-                          const PlayNetworkAudio(isInitial: false),
+                          PlayNetworkAudio(),
                         );
                       },
-                      child: (state is NetworkAudioLoading)
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : Icon(
-                              (state is NetworkAudioPaused)
-                                  ? Icons.play_arrow
-                                  : Icons.pause,
-                            ),
+                      child: Icon(
+                        (state is NetworkAudioPaused)
+                            ? Icons.play_arrow
+                            : Icons.pause,
+                      ),
                     );
                   },
                 ),
