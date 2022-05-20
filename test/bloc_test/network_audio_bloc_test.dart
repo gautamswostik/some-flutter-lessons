@@ -18,7 +18,7 @@ void main() {
       });
 
       test(
-        'The GetFavMoviesBloc should emit GetFavMoviesInitial as its initial state',
+        'The NetworkAudioBloc should emit NetworkAudioPaused as its initial state',
         () {
           when(mockNetworkAudioBloc.state).thenReturn(NetworkAudioPaused());
 

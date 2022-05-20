@@ -2,17 +2,20 @@
 // in fluuter_boilerplate/test/mocks/app_mocks.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i10;
-import 'dart:typed_data' as _i14;
+import 'dart:async' as _i12;
+import 'dart:io' as _i11;
+import 'dart:typed_data' as _i16;
 
 import 'package:audioplayers/audioplayers.dart' as _i7;
 import 'package:audioplayers/src/notifications/notification_service.dart'
-    as _i9;
-import 'package:bloc/bloc.dart' as _i11;
+    as _i10;
+import 'package:bloc/bloc.dart' as _i13;
 import 'package:fluuter_boilerplate/app_setup/languages/entity/language_entity.dart'
-    as _i15;
+    as _i17;
 import 'package:fluuter_boilerplate/application/app_theme/theme_cubit.dart'
     as _i3;
+import 'package:fluuter_boilerplate/application/asset_audio/assetaudio_bloc.dart'
+    as _i9;
 import 'package:fluuter_boilerplate/application/languages/language_cubit.dart'
     as _i6;
 import 'package:fluuter_boilerplate/application/network_radio/networkradio_bloc.dart'
@@ -21,8 +24,8 @@ import 'package:fluuter_boilerplate/infrastructure/language_repo/language_repo.d
     as _i5;
 import 'package:fluuter_boilerplate/infrastructure/theme_repo/theme_repo.dart'
     as _i2;
-import 'package:hive/src/box/default_compaction_strategy.dart' as _i13;
-import 'package:hive/src/box/default_key_comparator.dart' as _i12;
+import 'package:hive/src/box/default_compaction_strategy.dart' as _i15;
+import 'package:hive/src/box/default_key_comparator.dart' as _i14;
 import 'package:hive_flutter/hive_flutter.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -57,8 +60,16 @@ class _FakeAudioPlayer_7 extends _i1.Fake implements _i7.AudioPlayer {}
 class _FakeNetworkAudioState_8 extends _i1.Fake
     implements _i8.NetworkAudioState {}
 
-class _FakeNotificationService_9 extends _i1.Fake
-    implements _i9.NotificationService {}
+class _FakeAudioCache_9 extends _i1.Fake implements _i7.AudioCache {}
+
+class _FakeAssetAudioState_10 extends _i1.Fake implements _i9.AssetAudioState {}
+
+class _FakeNotificationService_11 extends _i1.Fake
+    implements _i10.NotificationService {}
+
+class _FakeUri_12 extends _i1.Fake implements Uri {}
+
+class _FakeFile_13 extends _i1.Fake implements _i11.File {}
 
 /// A class which mocks [ThemeCubit].
 ///
@@ -76,10 +87,10 @@ class MockThemeCubit extends _i1.Mock implements _i3.ThemeCubit {
   _i3.ThemeState get state => (super.noSuchMethod(Invocation.getter(#state),
       returnValue: _FakeThemeState_1()) as _i3.ThemeState);
   @override
-  _i10.Stream<_i3.ThemeState> get stream =>
+  _i12.Stream<_i3.ThemeState> get stream =>
       (super.noSuchMethod(Invocation.getter(#stream),
               returnValue: Stream<_i3.ThemeState>.empty())
-          as _i10.Stream<_i3.ThemeState>);
+          as _i12.Stream<_i3.ThemeState>);
   @override
   bool get isClosed =>
       (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
@@ -96,7 +107,7 @@ class MockThemeCubit extends _i1.Mock implements _i3.ThemeCubit {
       super.noSuchMethod(Invocation.method(#emit, [state]),
           returnValueForMissingStub: null);
   @override
-  void onChange(_i11.Change<_i3.ThemeState>? change) =>
+  void onChange(_i13.Change<_i3.ThemeState>? change) =>
       super.noSuchMethod(Invocation.method(#onChange, [change]),
           returnValueForMissingStub: null);
   @override
@@ -108,10 +119,10 @@ class MockThemeCubit extends _i1.Mock implements _i3.ThemeCubit {
       super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]),
           returnValueForMissingStub: null);
   @override
-  _i10.Future<void> close() => (super.noSuchMethod(
+  _i12.Future<void> close() => (super.noSuchMethod(
       Invocation.method(#close, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
 }
 
 /// A class which mocks [HiveInterface].
@@ -127,14 +138,14 @@ class MockHiveInterface extends _i1.Mock implements _i4.HiveInterface {
       super.noSuchMethod(Invocation.method(#init, [path]),
           returnValueForMissingStub: null);
   @override
-  _i10.Future<_i4.Box<E>> openBox<E>(String? name,
+  _i12.Future<_i4.Box<E>> openBox<E>(String? name,
           {_i4.HiveCipher? encryptionCipher,
-          _i4.KeyComparator? keyComparator = _i12.defaultKeyComparator,
+          _i4.KeyComparator? keyComparator = _i14.defaultKeyComparator,
           _i4.CompactionStrategy? compactionStrategy =
-              _i13.defaultCompactionStrategy,
+              _i15.defaultCompactionStrategy,
           bool? crashRecovery = true,
           String? path,
-          _i14.Uint8List? bytes,
+          _i16.Uint8List? bytes,
           List<int>? encryptionKey}) =>
       (super.noSuchMethod(
               Invocation.method(#openBox, [
@@ -149,13 +160,13 @@ class MockHiveInterface extends _i1.Mock implements _i4.HiveInterface {
                 #encryptionKey: encryptionKey
               }),
               returnValue: Future<_i4.Box<E>>.value(_FakeBox_2<E>()))
-          as _i10.Future<_i4.Box<E>>);
+          as _i12.Future<_i4.Box<E>>);
   @override
-  _i10.Future<_i4.LazyBox<E>> openLazyBox<E>(String? name,
+  _i12.Future<_i4.LazyBox<E>> openLazyBox<E>(String? name,
           {_i4.HiveCipher? encryptionCipher,
-          _i4.KeyComparator? keyComparator = _i12.defaultKeyComparator,
+          _i4.KeyComparator? keyComparator = _i14.defaultKeyComparator,
           _i4.CompactionStrategy? compactionStrategy =
-              _i13.defaultCompactionStrategy,
+              _i15.defaultCompactionStrategy,
           bool? crashRecovery = true,
           String? path,
           List<int>? encryptionKey}) =>
@@ -171,7 +182,7 @@ class MockHiveInterface extends _i1.Mock implements _i4.HiveInterface {
                 #encryptionKey: encryptionKey
               }),
               returnValue: Future<_i4.LazyBox<E>>.value(_FakeLazyBox_3<E>()))
-          as _i10.Future<_i4.LazyBox<E>>);
+          as _i12.Future<_i4.LazyBox<E>>);
   @override
   _i4.Box<E> box<E>(String? name) =>
       (super.noSuchMethod(Invocation.method(#box, [name]),
@@ -185,30 +196,30 @@ class MockHiveInterface extends _i1.Mock implements _i4.HiveInterface {
       (super.noSuchMethod(Invocation.method(#isBoxOpen, [name]),
           returnValue: false) as bool);
   @override
-  _i10.Future<void> close() => (super.noSuchMethod(
+  _i12.Future<void> close() => (super.noSuchMethod(
       Invocation.method(#close, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<void> deleteBoxFromDisk(String? name, {String? path}) =>
+  _i12.Future<void> deleteBoxFromDisk(String? name, {String? path}) =>
       (super.noSuchMethod(
               Invocation.method(#deleteBoxFromDisk, [name], {#path: path}),
               returnValue: Future<void>.value(),
               returnValueForMissingStub: Future<void>.value())
-          as _i10.Future<void>);
+          as _i12.Future<void>);
   @override
-  _i10.Future<void> deleteFromDisk() => (super.noSuchMethod(
+  _i12.Future<void> deleteFromDisk() => (super.noSuchMethod(
       Invocation.method(#deleteFromDisk, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
   List<int> generateSecureKey() =>
       (super.noSuchMethod(Invocation.method(#generateSecureKey, []),
           returnValue: <int>[]) as List<int>);
   @override
-  _i10.Future<bool> boxExists(String? name, {String? path}) =>
+  _i12.Future<bool> boxExists(String? name, {String? path}) =>
       (super.noSuchMethod(Invocation.method(#boxExists, [name], {#path: path}),
-          returnValue: Future<bool>.value(false)) as _i10.Future<bool>);
+          returnValue: Future<bool>.value(false)) as _i12.Future<bool>);
   @override
   void registerAdapter<T>(_i4.TypeAdapter<T>? adapter,
           {bool? internal = false, bool? override = false}) =>
@@ -239,14 +250,14 @@ class MockAddThemeRepository extends _i1.Mock
   _i4.HiveInterface get hive => (super.noSuchMethod(Invocation.getter(#hive),
       returnValue: _FakeHiveInterface_4()) as _i4.HiveInterface);
   @override
-  _i10.Future<void> addTheme(bool? isDark) => (super.noSuchMethod(
+  _i12.Future<void> addTheme(bool? isDark) => (super.noSuchMethod(
       Invocation.method(#addTheme, [isDark]),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<bool> getSavedTheme() =>
+  _i12.Future<bool> getSavedTheme() =>
       (super.noSuchMethod(Invocation.method(#getSavedTheme, []),
-          returnValue: Future<bool>.value(false)) as _i10.Future<bool>);
+          returnValue: Future<bool>.value(false)) as _i12.Future<bool>);
 }
 
 /// A class which mocks [Box].
@@ -303,75 +314,75 @@ class MockBox<E> extends _i1.Mock implements _i4.Box<E> {
   dynamic keyAt(int? index) =>
       super.noSuchMethod(Invocation.method(#keyAt, [index]));
   @override
-  _i10.Stream<_i4.BoxEvent> watch({dynamic key}) => (super.noSuchMethod(
+  _i12.Stream<_i4.BoxEvent> watch({dynamic key}) => (super.noSuchMethod(
       Invocation.method(#watch, [], {#key: key}),
-      returnValue: Stream<_i4.BoxEvent>.empty()) as _i10.Stream<_i4.BoxEvent>);
+      returnValue: Stream<_i4.BoxEvent>.empty()) as _i12.Stream<_i4.BoxEvent>);
   @override
   bool containsKey(dynamic key) =>
       (super.noSuchMethod(Invocation.method(#containsKey, [key]),
           returnValue: false) as bool);
   @override
-  _i10.Future<void> put(dynamic key, E? value) => (super.noSuchMethod(
+  _i12.Future<void> put(dynamic key, E? value) => (super.noSuchMethod(
       Invocation.method(#put, [key, value]),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<void> putAt(int? index, E? value) => (super.noSuchMethod(
+  _i12.Future<void> putAt(int? index, E? value) => (super.noSuchMethod(
       Invocation.method(#putAt, [index, value]),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<void> putAll(Map<dynamic, E>? entries) => (super.noSuchMethod(
+  _i12.Future<void> putAll(Map<dynamic, E>? entries) => (super.noSuchMethod(
       Invocation.method(#putAll, [entries]),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<int> add(E? value) =>
+  _i12.Future<int> add(E? value) =>
       (super.noSuchMethod(Invocation.method(#add, [value]),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<Iterable<int>> addAll(Iterable<E>? values) =>
+  _i12.Future<Iterable<int>> addAll(Iterable<E>? values) =>
       (super.noSuchMethod(Invocation.method(#addAll, [values]),
               returnValue: Future<Iterable<int>>.value(<int>[]))
-          as _i10.Future<Iterable<int>>);
+          as _i12.Future<Iterable<int>>);
   @override
-  _i10.Future<void> delete(dynamic key) => (super.noSuchMethod(
+  _i12.Future<void> delete(dynamic key) => (super.noSuchMethod(
       Invocation.method(#delete, [key]),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<void> deleteAt(int? index) => (super.noSuchMethod(
+  _i12.Future<void> deleteAt(int? index) => (super.noSuchMethod(
       Invocation.method(#deleteAt, [index]),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<void> deleteAll(Iterable<dynamic>? keys) => (super.noSuchMethod(
+  _i12.Future<void> deleteAll(Iterable<dynamic>? keys) => (super.noSuchMethod(
       Invocation.method(#deleteAll, [keys]),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<void> compact() => (super.noSuchMethod(
+  _i12.Future<void> compact() => (super.noSuchMethod(
       Invocation.method(#compact, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<int> clear() => (super.noSuchMethod(Invocation.method(#clear, []),
-      returnValue: Future<int>.value(0)) as _i10.Future<int>);
+  _i12.Future<int> clear() => (super.noSuchMethod(Invocation.method(#clear, []),
+      returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<void> close() => (super.noSuchMethod(
+  _i12.Future<void> close() => (super.noSuchMethod(
       Invocation.method(#close, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<void> deleteFromDisk() => (super.noSuchMethod(
+  _i12.Future<void> deleteFromDisk() => (super.noSuchMethod(
       Invocation.method(#deleteFromDisk, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<void> flush() => (super.noSuchMethod(
+  _i12.Future<void> flush() => (super.noSuchMethod(
       Invocation.method(#flush, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
 }
 
 /// A class which mocks [LanguageCubit].
@@ -390,10 +401,10 @@ class MockLanguageCubit extends _i1.Mock implements _i6.LanguageCubit {
   _i6.LanguageState get state => (super.noSuchMethod(Invocation.getter(#state),
       returnValue: _FakeLanguageState_6()) as _i6.LanguageState);
   @override
-  _i10.Stream<_i6.LanguageState> get stream =>
+  _i12.Stream<_i6.LanguageState> get stream =>
       (super.noSuchMethod(Invocation.getter(#stream),
               returnValue: Stream<_i6.LanguageState>.empty())
-          as _i10.Stream<_i6.LanguageState>);
+          as _i12.Stream<_i6.LanguageState>);
   @override
   bool get isClosed =>
       (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
@@ -410,7 +421,7 @@ class MockLanguageCubit extends _i1.Mock implements _i6.LanguageCubit {
       super.noSuchMethod(Invocation.method(#emit, [state]),
           returnValueForMissingStub: null);
   @override
-  void onChange(_i11.Change<_i6.LanguageState>? change) =>
+  void onChange(_i13.Change<_i6.LanguageState>? change) =>
       super.noSuchMethod(Invocation.method(#onChange, [change]),
           returnValueForMissingStub: null);
   @override
@@ -422,10 +433,10 @@ class MockLanguageCubit extends _i1.Mock implements _i6.LanguageCubit {
       super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]),
           returnValueForMissingStub: null);
   @override
-  _i10.Future<void> close() => (super.noSuchMethod(
+  _i12.Future<void> close() => (super.noSuchMethod(
       Invocation.method(#close, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
 }
 
 /// A class which mocks [LanguageRepository].
@@ -441,20 +452,20 @@ class MockLanguageRepository extends _i1.Mock
   _i4.HiveInterface get hive => (super.noSuchMethod(Invocation.getter(#hive),
       returnValue: _FakeHiveInterface_4()) as _i4.HiveInterface);
   @override
-  _i10.Future<void> addLanguage(String? languageCode) => (super.noSuchMethod(
+  _i12.Future<void> addLanguage(String? languageCode) => (super.noSuchMethod(
       Invocation.method(#addLanguage, [languageCode]),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<String> getSavedLanguage() =>
+  _i12.Future<String> getSavedLanguage() =>
       (super.noSuchMethod(Invocation.method(#getSavedLanguage, []),
-          returnValue: Future<String>.value('')) as _i10.Future<String>);
+          returnValue: Future<String>.value('')) as _i12.Future<String>);
 }
 
 /// A class which mocks [LanguageEntity].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLanguageEntity extends _i1.Mock implements _i15.LanguageEntity {
+class MockLanguageEntity extends _i1.Mock implements _i17.LanguageEntity {
   MockLanguageEntity() {
     _i1.throwOnMissingStub(this);
   }
@@ -494,10 +505,10 @@ class MockNetworkAudioBloc extends _i1.Mock implements _i8.NetworkAudioBloc {
       (super.noSuchMethod(Invocation.getter(#state),
           returnValue: _FakeNetworkAudioState_8()) as _i8.NetworkAudioState);
   @override
-  _i10.Stream<_i8.NetworkAudioState> get stream =>
+  _i12.Stream<_i8.NetworkAudioState> get stream =>
       (super.noSuchMethod(Invocation.getter(#stream),
               returnValue: Stream<_i8.NetworkAudioState>.empty())
-          as _i10.Stream<_i8.NetworkAudioState>);
+          as _i12.Stream<_i8.NetworkAudioState>);
   @override
   bool get isClosed =>
       (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
@@ -516,24 +527,105 @@ class MockNetworkAudioBloc extends _i1.Mock implements _i8.NetworkAudioBloc {
           returnValueForMissingStub: null);
   @override
   void on<E extends _i8.NetworkrAudioEvent>(
-          _i11.EventHandler<E, _i8.NetworkAudioState>? handler,
-          {_i11.EventTransformer<E>? transformer}) =>
+          _i13.EventHandler<E, _i8.NetworkAudioState>? handler,
+          {_i13.EventTransformer<E>? transformer}) =>
       super.noSuchMethod(
           Invocation.method(#on, [handler], {#transformer: transformer}),
           returnValueForMissingStub: null);
   @override
   void onTransition(
-          _i11.Transition<_i8.NetworkrAudioEvent, _i8.NetworkAudioState>?
+          _i13.Transition<_i8.NetworkrAudioEvent, _i8.NetworkAudioState>?
               transition) =>
       super.noSuchMethod(Invocation.method(#onTransition, [transition]),
           returnValueForMissingStub: null);
   @override
-  _i10.Future<void> close() => (super.noSuchMethod(
+  _i12.Future<void> close() => (super.noSuchMethod(
       Invocation.method(#close, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  void onChange(_i11.Change<_i8.NetworkAudioState>? change) =>
+  void onChange(_i13.Change<_i8.NetworkAudioState>? change) =>
+      super.noSuchMethod(Invocation.method(#onChange, [change]),
+          returnValueForMissingStub: null);
+  @override
+  void addError(Object? error, [StackTrace? stackTrace]) =>
+      super.noSuchMethod(Invocation.method(#addError, [error, stackTrace]),
+          returnValueForMissingStub: null);
+  @override
+  void onError(Object? error, StackTrace? stackTrace) =>
+      super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]),
+          returnValueForMissingStub: null);
+}
+
+/// A class which mocks [AssetAudioBloc].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAssetAudioBloc extends _i1.Mock implements _i9.AssetAudioBloc {
+  MockAssetAudioBloc() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.AudioPlayer get audioPlayer =>
+      (super.noSuchMethod(Invocation.getter(#audioPlayer),
+          returnValue: _FakeAudioPlayer_7()) as _i7.AudioPlayer);
+  @override
+  set audioPlayer(_i7.AudioPlayer? _audioPlayer) =>
+      super.noSuchMethod(Invocation.setter(#audioPlayer, _audioPlayer),
+          returnValueForMissingStub: null);
+  @override
+  _i7.AudioCache get audioCache =>
+      (super.noSuchMethod(Invocation.getter(#audioCache),
+          returnValue: _FakeAudioCache_9()) as _i7.AudioCache);
+  @override
+  set audioCache(_i7.AudioCache? _audioCache) =>
+      super.noSuchMethod(Invocation.setter(#audioCache, _audioCache),
+          returnValueForMissingStub: null);
+  @override
+  _i9.AssetAudioState get state =>
+      (super.noSuchMethod(Invocation.getter(#state),
+          returnValue: _FakeAssetAudioState_10()) as _i9.AssetAudioState);
+  @override
+  _i12.Stream<_i9.AssetAudioState> get stream =>
+      (super.noSuchMethod(Invocation.getter(#stream),
+              returnValue: Stream<_i9.AssetAudioState>.empty())
+          as _i12.Stream<_i9.AssetAudioState>);
+  @override
+  bool get isClosed =>
+      (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
+          as bool);
+  @override
+  void add(_i9.AssetAudioEvent? event) =>
+      super.noSuchMethod(Invocation.method(#add, [event]),
+          returnValueForMissingStub: null);
+  @override
+  void onEvent(_i9.AssetAudioEvent? event) =>
+      super.noSuchMethod(Invocation.method(#onEvent, [event]),
+          returnValueForMissingStub: null);
+  @override
+  void emit(_i9.AssetAudioState? state) =>
+      super.noSuchMethod(Invocation.method(#emit, [state]),
+          returnValueForMissingStub: null);
+  @override
+  void on<E extends _i9.AssetAudioEvent>(
+          _i13.EventHandler<E, _i9.AssetAudioState>? handler,
+          {_i13.EventTransformer<E>? transformer}) =>
+      super.noSuchMethod(
+          Invocation.method(#on, [handler], {#transformer: transformer}),
+          returnValueForMissingStub: null);
+  @override
+  void onTransition(
+          _i13.Transition<_i9.AssetAudioEvent, _i9.AssetAudioState>?
+              transition) =>
+      super.noSuchMethod(Invocation.method(#onTransition, [transition]),
+          returnValueForMissingStub: null);
+  @override
+  _i12.Future<void> close() => (super.noSuchMethod(
+      Invocation.method(#close, []),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
+  @override
+  void onChange(_i13.Change<_i9.AssetAudioState>? change) =>
       super.noSuchMethod(Invocation.method(#onChange, [change]),
           returnValueForMissingStub: null);
   @override
@@ -555,11 +647,11 @@ class MockAudioPlayer extends _i1.Mock implements _i7.AudioPlayer {
   }
 
   @override
-  _i9.NotificationService get notificationService => (super.noSuchMethod(
+  _i10.NotificationService get notificationService => (super.noSuchMethod(
       Invocation.getter(#notificationService),
-      returnValue: _FakeNotificationService_9()) as _i9.NotificationService);
+      returnValue: _FakeNotificationService_11()) as _i10.NotificationService);
   @override
-  set notificationService(_i9.NotificationService? _notificationService) =>
+  set notificationService(_i10.NotificationService? _notificationService) =>
       super.noSuchMethod(
           Invocation.setter(#notificationService, _notificationService),
           returnValueForMissingStub: null);
@@ -586,37 +678,37 @@ class MockAudioPlayer extends _i1.Mock implements _i7.AudioPlayer {
       super.noSuchMethod(Invocation.setter(#notificationState, state),
           returnValueForMissingStub: null);
   @override
-  _i10.Stream<_i7.PlayerState> get onPlayerStateChanged =>
+  _i12.Stream<_i7.PlayerState> get onPlayerStateChanged =>
       (super.noSuchMethod(Invocation.getter(#onPlayerStateChanged),
               returnValue: Stream<_i7.PlayerState>.empty())
-          as _i10.Stream<_i7.PlayerState>);
+          as _i12.Stream<_i7.PlayerState>);
   @override
-  _i10.Stream<_i7.PlayerState> get onNotificationPlayerStateChanged =>
+  _i12.Stream<_i7.PlayerState> get onNotificationPlayerStateChanged =>
       (super.noSuchMethod(Invocation.getter(#onNotificationPlayerStateChanged),
               returnValue: Stream<_i7.PlayerState>.empty())
-          as _i10.Stream<_i7.PlayerState>);
+          as _i12.Stream<_i7.PlayerState>);
   @override
-  _i10.Stream<Duration> get onAudioPositionChanged =>
+  _i12.Stream<Duration> get onAudioPositionChanged =>
       (super.noSuchMethod(Invocation.getter(#onAudioPositionChanged),
-          returnValue: Stream<Duration>.empty()) as _i10.Stream<Duration>);
+          returnValue: Stream<Duration>.empty()) as _i12.Stream<Duration>);
   @override
-  _i10.Stream<Duration> get onDurationChanged =>
+  _i12.Stream<Duration> get onDurationChanged =>
       (super.noSuchMethod(Invocation.getter(#onDurationChanged),
-          returnValue: Stream<Duration>.empty()) as _i10.Stream<Duration>);
+          returnValue: Stream<Duration>.empty()) as _i12.Stream<Duration>);
   @override
-  _i10.Stream<void> get onPlayerCompletion =>
+  _i12.Stream<void> get onPlayerCompletion =>
       (super.noSuchMethod(Invocation.getter(#onPlayerCompletion),
-          returnValue: Stream<void>.empty()) as _i10.Stream<void>);
+          returnValue: Stream<void>.empty()) as _i12.Stream<void>);
   @override
-  _i10.Stream<void> get onSeekComplete =>
+  _i12.Stream<void> get onSeekComplete =>
       (super.noSuchMethod(Invocation.getter(#onSeekComplete),
-          returnValue: Stream<void>.empty()) as _i10.Stream<void>);
+          returnValue: Stream<void>.empty()) as _i12.Stream<void>);
   @override
-  _i10.Stream<String> get onPlayerError =>
+  _i12.Stream<String> get onPlayerError =>
       (super.noSuchMethod(Invocation.getter(#onPlayerError),
-          returnValue: Stream<String>.empty()) as _i10.Stream<String>);
+          returnValue: Stream<String>.empty()) as _i12.Stream<String>);
   @override
-  _i10.Future<int> play(String? url,
+  _i12.Future<int> play(String? url,
           {bool? isLocal,
           double? volume = 1.0,
           Duration? position,
@@ -636,9 +728,9 @@ class MockAudioPlayer extends _i1.Mock implements _i7.AudioPlayer {
             #duckAudio: duckAudio,
             #recordingActive: recordingActive
           }),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<int> playBytes(_i14.Uint8List? bytes,
+  _i12.Future<int> playBytes(_i16.Uint8List? bytes,
           {double? volume = 1.0,
           Duration? position,
           bool? respectSilence = false,
@@ -656,39 +748,39 @@ class MockAudioPlayer extends _i1.Mock implements _i7.AudioPlayer {
             #duckAudio: duckAudio,
             #recordingActive: recordingActive
           }),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<int> pause() => (super.noSuchMethod(Invocation.method(#pause, []),
-      returnValue: Future<int>.value(0)) as _i10.Future<int>);
+  _i12.Future<int> pause() => (super.noSuchMethod(Invocation.method(#pause, []),
+      returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<int> stop() => (super.noSuchMethod(Invocation.method(#stop, []),
-      returnValue: Future<int>.value(0)) as _i10.Future<int>);
+  _i12.Future<int> stop() => (super.noSuchMethod(Invocation.method(#stop, []),
+      returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<int> resume() =>
+  _i12.Future<int> resume() =>
       (super.noSuchMethod(Invocation.method(#resume, []),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<int> release() =>
+  _i12.Future<int> release() =>
       (super.noSuchMethod(Invocation.method(#release, []),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<int> seek(Duration? position) =>
+  _i12.Future<int> seek(Duration? position) =>
       (super.noSuchMethod(Invocation.method(#seek, [position]),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<int> setVolume(double? volume) =>
+  _i12.Future<int> setVolume(double? volume) =>
       (super.noSuchMethod(Invocation.method(#setVolume, [volume]),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<int> setReleaseMode(_i7.ReleaseMode? releaseMode) =>
+  _i12.Future<int> setReleaseMode(_i7.ReleaseMode? releaseMode) =>
       (super.noSuchMethod(Invocation.method(#setReleaseMode, [releaseMode]),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<int> setPlaybackRate(double? playbackRate) =>
+  _i12.Future<int> setPlaybackRate(double? playbackRate) =>
       (super.noSuchMethod(Invocation.method(#setPlaybackRate, [playbackRate]),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<int> setUrl(String? url,
+  _i12.Future<int> setUrl(String? url,
           {bool? isLocal,
           bool? respectSilence = false,
           bool? recordingActive = false}) =>
@@ -700,26 +792,159 @@ class MockAudioPlayer extends _i1.Mock implements _i7.AudioPlayer {
             #respectSilence: respectSilence,
             #recordingActive: recordingActive
           }),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<int> getDuration() =>
+  _i12.Future<int> getDuration() =>
       (super.noSuchMethod(Invocation.method(#getDuration, []),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<int> getCurrentPosition() =>
+  _i12.Future<int> getCurrentPosition() =>
       (super.noSuchMethod(Invocation.method(#getCurrentPosition, []),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
-  _i10.Future<void> dispose() => (super.noSuchMethod(
+  _i12.Future<void> dispose() => (super.noSuchMethod(
       Invocation.method(#dispose, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
   @override
-  _i10.Future<int> earpieceOrSpeakersToggle() =>
+  _i12.Future<int> earpieceOrSpeakersToggle() =>
       (super.noSuchMethod(Invocation.method(#earpieceOrSpeakersToggle, []),
-          returnValue: Future<int>.value(0)) as _i10.Future<int>);
+          returnValue: Future<int>.value(0)) as _i12.Future<int>);
   @override
   bool isLocalUrl(String? url) =>
       (super.noSuchMethod(Invocation.method(#isLocalUrl, [url]),
           returnValue: false) as bool);
+}
+
+/// A class which mocks [AudioCache].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAudioCache extends _i1.Mock implements _i7.AudioCache {
+  MockAudioCache() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  Map<String, Uri> get loadedFiles =>
+      (super.noSuchMethod(Invocation.getter(#loadedFiles),
+          returnValue: <String, Uri>{}) as Map<String, Uri>);
+  @override
+  set loadedFiles(Map<String, Uri>? _loadedFiles) =>
+      super.noSuchMethod(Invocation.setter(#loadedFiles, _loadedFiles),
+          returnValueForMissingStub: null);
+  @override
+  String get prefix =>
+      (super.noSuchMethod(Invocation.getter(#prefix), returnValue: '')
+          as String);
+  @override
+  set prefix(String? _prefix) =>
+      super.noSuchMethod(Invocation.setter(#prefix, _prefix),
+          returnValueForMissingStub: null);
+  @override
+  set fixedPlayer(_i7.AudioPlayer? _fixedPlayer) =>
+      super.noSuchMethod(Invocation.setter(#fixedPlayer, _fixedPlayer),
+          returnValueForMissingStub: null);
+  @override
+  bool get respectSilence => (super
+          .noSuchMethod(Invocation.getter(#respectSilence), returnValue: false)
+      as bool);
+  @override
+  set respectSilence(bool? _respectSilence) =>
+      super.noSuchMethod(Invocation.setter(#respectSilence, _respectSilence),
+          returnValueForMissingStub: null);
+  @override
+  bool get duckAudio =>
+      (super.noSuchMethod(Invocation.getter(#duckAudio), returnValue: false)
+          as bool);
+  @override
+  set duckAudio(bool? _duckAudio) =>
+      super.noSuchMethod(Invocation.setter(#duckAudio, _duckAudio),
+          returnValueForMissingStub: null);
+  @override
+  _i12.Future<void> clear(Uri? fileName) => (super.noSuchMethod(
+      Invocation.method(#clear, [fileName]),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
+  @override
+  _i12.Future<void> clearAll() => (super.noSuchMethod(
+      Invocation.method(#clearAll, []),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i12.Future<void>);
+  @override
+  _i12.Future<Uri> fetchToMemory(String? fileName) =>
+      (super.noSuchMethod(Invocation.method(#fetchToMemory, [fileName]),
+          returnValue: Future<Uri>.value(_FakeUri_12())) as _i12.Future<Uri>);
+  @override
+  _i12.Future<Uri> load(String? fileName) =>
+      (super.noSuchMethod(Invocation.method(#load, [fileName]),
+          returnValue: Future<Uri>.value(_FakeUri_12())) as _i12.Future<Uri>);
+  @override
+  _i12.Future<_i11.File> loadAsFile(String? fileName) =>
+      (super.noSuchMethod(Invocation.method(#loadAsFile, [fileName]),
+              returnValue: Future<_i11.File>.value(_FakeFile_13()))
+          as _i12.Future<_i11.File>);
+  @override
+  _i12.Future<List<Uri>> loadAll(List<String>? fileNames) =>
+      (super.noSuchMethod(Invocation.method(#loadAll, [fileNames]),
+              returnValue: Future<List<Uri>>.value(<Uri>[]))
+          as _i12.Future<List<Uri>>);
+  @override
+  _i12.Future<_i7.AudioPlayer> play(String? fileName,
+          {double? volume = 1.0,
+          bool? isNotification,
+          _i7.PlayerMode? mode = _i7.PlayerMode.MEDIA_PLAYER,
+          bool? stayAwake = false,
+          bool? recordingActive = false,
+          bool? duckAudio}) =>
+      (super.noSuchMethod(
+              Invocation.method(#play, [
+                fileName
+              ], {
+                #volume: volume,
+                #isNotification: isNotification,
+                #mode: mode,
+                #stayAwake: stayAwake,
+                #recordingActive: recordingActive,
+                #duckAudio: duckAudio
+              }),
+              returnValue: Future<_i7.AudioPlayer>.value(_FakeAudioPlayer_7()))
+          as _i12.Future<_i7.AudioPlayer>);
+  @override
+  _i12.Future<_i7.AudioPlayer> playBytes(_i16.Uint8List? fileBytes,
+          {double? volume = 1.0,
+          bool? isNotification,
+          _i7.PlayerMode? mode = _i7.PlayerMode.MEDIA_PLAYER,
+          bool? loop = false,
+          bool? stayAwake = false,
+          bool? recordingActive = false}) =>
+      (super.noSuchMethod(
+              Invocation.method(#playBytes, [
+                fileBytes
+              ], {
+                #volume: volume,
+                #isNotification: isNotification,
+                #mode: mode,
+                #loop: loop,
+                #stayAwake: stayAwake,
+                #recordingActive: recordingActive
+              }),
+              returnValue: Future<_i7.AudioPlayer>.value(_FakeAudioPlayer_7()))
+          as _i12.Future<_i7.AudioPlayer>);
+  @override
+  _i12.Future<_i7.AudioPlayer> loop(String? fileName,
+          {double? volume = 1.0,
+          bool? isNotification,
+          _i7.PlayerMode? mode = _i7.PlayerMode.MEDIA_PLAYER,
+          bool? stayAwake = false}) =>
+      (super.noSuchMethod(
+              Invocation.method(#loop, [
+                fileName
+              ], {
+                #volume: volume,
+                #isNotification: isNotification,
+                #mode: mode,
+                #stayAwake: stayAwake
+              }),
+              returnValue: Future<_i7.AudioPlayer>.value(_FakeAudioPlayer_7()))
+          as _i12.Future<_i7.AudioPlayer>);
 }

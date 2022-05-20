@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluuter_boilerplate/application/asset_audio/assetaudio_bloc.dart';
 import 'package:fluuter_boilerplate/application/network_radio/networkradio_bloc.dart';
+import 'package:fluuter_boilerplate/screens/audio_player/widgets/asset_audio_player.dart';
+import 'package:fluuter_boilerplate/screens/audio_player/widgets/device_audio_player.dart';
 import 'package:fluuter_boilerplate/screens/audio_player/widgets/network_audio_player.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
 import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
@@ -15,8 +18,8 @@ class AudioPlayerScreen extends StatefulWidget {
 class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   static final List<Widget> _widgetOptions = <Widget>[
     const NetworkAudioPlayer(),
-    const SizedBox(),
-    Container(),
+    const AssetAudioPlayer(),
+    const DeviceAudioFile(),
   ];
 
   int _selectedIndex = 0;
@@ -27,6 +30,9 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
       if (index == 1 || index == 2) {
         BlocProvider.of<NetworkAudioBloc>(context).add(StopNetworkAudio());
       }
+      if (index == 0 || index == 2) {
+        BlocProvider.of<AssetAudioBloc>(context).add(StopAssetAudio());
+      }
     });
   }
 
@@ -35,6 +41,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     return WillPopScope(
       onWillPop: () async {
         BlocProvider.of<NetworkAudioBloc>(context).add(StopNetworkAudio());
+        BlocProvider.of<AssetAudioBloc>(context).add(StopAssetAudio());
         return true;
       },
       child: DefaultTabController(

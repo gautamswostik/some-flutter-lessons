@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluuter_boilerplate/app/app_localization.dart';
 import 'package:fluuter_boilerplate/app_setup/languages/languages.dart';
 import 'package:fluuter_boilerplate/application/app_theme/theme_cubit.dart';
+import 'package:fluuter_boilerplate/application/asset_audio/assetaudio_bloc.dart';
 import 'package:fluuter_boilerplate/application/languages/language_cubit.dart';
 import 'package:fluuter_boilerplate/application/network_radio/networkradio_bloc.dart';
 import 'package:fluuter_boilerplate/infrastructure/language_repo/language_repo.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     AddThemeRepository addThemeRepository = AddThemeRepository(hive: Hive);
     LanguageRepository languageRepository = LanguageRepository(hive: Hive);
     AudioPlayer audioPlayer = AudioPlayer();
+    AudioCache audioCache = AudioCache();
 
     return MultiBlocProvider(
       providers: [
@@ -34,6 +36,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<NetworkAudioBloc>(
           create: (context) => NetworkAudioBloc(
             audioPlayer: audioPlayer,
+          ),
+        ),
+        BlocProvider<AssetAudioBloc>(
+          create: (context) => AssetAudioBloc(
+            audioPlayer: audioPlayer,
+            audioCache: audioCache,
           ),
         ),
       ],
