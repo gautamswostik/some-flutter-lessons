@@ -81,6 +81,25 @@ void main() {
           mockAudioPlayer.stop();
         },
       );
+
+      blocTest<DeviceAudioBloc, DeviceAudioState>(
+        'Should emit AssetDevicePlaying when SeekDeviceAudio',
+        setUp: () {
+          when(mockAudioPlayer.seek(const Duration(microseconds: 1)))
+              .thenAnswer((_) async => 1);
+          when(mockAudioPlayer.resume()).thenAnswer((_) async => 1);
+        },
+        build: () => DeviceAudioBloc(
+          audioPlayer: mockAudioPlayer,
+        ),
+        act: (bloc) => bloc.add(
+            const SeekDeviceAudio(seekDuration: Duration(microseconds: 1))),
+        expect: () => [isA<DeviceAudioPlaying>()],
+        verify: (bloc) {
+          mockAudioPlayer.seek(const Duration(microseconds: 1));
+          mockAudioPlayer.resume();
+        },
+      );
     },
   );
 }

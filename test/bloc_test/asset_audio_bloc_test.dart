@@ -104,7 +104,7 @@ void main() {
         },
       );
       blocTest<AssetAudioBloc, AssetAudioState>(
-        'Should emit AssetAudioPaused when StopAssetAudio',
+        'Should emit AssetAudioPlaying when SeekAssetAudio',
         setUp: () {
           when(mockAudioPlayer.seek(const Duration(microseconds: 1)))
               .thenAnswer((_) async => 1);
