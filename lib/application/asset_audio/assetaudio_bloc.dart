@@ -42,7 +42,15 @@ class AssetAudioBloc extends Bloc<AssetAudioEvent, AssetAudioState> {
         }
       },
     );
-
+    on<SeekAssetAudio>(
+      (event, emit) async {
+        await audioPlayer.seek(event.seekDuration);
+        await audioPlayer.resume();
+        emit(AssetAudioPlaying(
+          audioPlayer: audioPlayer,
+        ));
+      },
+    );
     on<StopAssetAudio>(
       (event, emit) async {
         await audioPlayer.stop();

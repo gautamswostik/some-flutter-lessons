@@ -103,6 +103,23 @@ void main() {
           mockAudioPlayer.stop();
         },
       );
+      blocTest<AssetAudioBloc, AssetAudioState>(
+        'Should emit AssetAudioPaused when StopAssetAudio',
+        setUp: () {
+          when(mockAudioPlayer.seek(const Duration(microseconds: 1)))
+              .thenAnswer((_) async => 1);
+          when(mockAudioPlayer.resume()).thenAnswer((_) async => 1);
+        },
+        build: () => AssetAudioBloc(
+            audioPlayer: mockAudioPlayer, audioCache: mockAudioCache),
+        act: (bloc) => bloc
+            .add(const SeekAssetAudio(seekDuration: Duration(microseconds: 1))),
+        expect: () => [isA<AssetAudioPlaying>()],
+        verify: (bloc) {
+          mockAudioPlayer.seek(const Duration(microseconds: 1));
+          mockAudioPlayer.resume();
+        },
+      );
     },
   );
 }

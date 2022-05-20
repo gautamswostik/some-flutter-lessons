@@ -6,7 +6,10 @@ import 'package:fluuter_boilerplate/screens/audio_player/widgets/asset_audio_pla
 import 'package:fluuter_boilerplate/screens/audio_player/widgets/device_audio_player.dart';
 import 'package:fluuter_boilerplate/screens/audio_player/widgets/network_audio_player.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
+import 'package:fluuter_boilerplate/utils/app_texts/gitbub_links.dart';
+import 'package:fluuter_boilerplate/utils/extensions/functions.dart';
 import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AudioPlayerScreen extends StatefulWidget {
   const AudioPlayerScreen({Key? key}) : super(key: key);
@@ -47,6 +50,12 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
       child: DefaultTabController(
         length: 3,
         child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              await launchInBrowser(GithubLinks.audioPlayerBranch);
+            },
+            child: const FaIcon(FontAwesomeIcons.github),
+          ),
           bottomNavigationBar: BottomNavigationBar(
             showSelectedLabels: true,
             items: <BottomNavigationBarItem>[

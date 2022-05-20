@@ -7,7 +7,6 @@ import 'package:fluuter_boilerplate/utils/app_texts/gitbub_links.dart';
 import 'package:fluuter_boilerplate/utils/extensions/functions.dart';
 import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AppLanguage extends StatefulWidget {
   const AppLanguage({

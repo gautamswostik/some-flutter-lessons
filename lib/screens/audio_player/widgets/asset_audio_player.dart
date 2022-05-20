@@ -11,7 +11,7 @@ class AssetAudioPlayer extends StatefulWidget {
 
 class _AssetAudioPlayerState extends State<AssetAudioPlayer> {
   Duration position = const Duration();
-
+  Duration totalDuration = const Duration();
   @override
   void setState(VoidCallback fn) {
     if (mounted) {
@@ -31,6 +31,24 @@ class _AssetAudioPlayerState extends State<AssetAudioPlayer> {
             },
             fit: BoxFit.cover,
           ),
+          SliderTheme(
+            data: const SliderThemeData(
+              trackHeight: 4,
+              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8),
+            ),
+            child: Slider(
+              value: position.inMilliseconds.toDouble(),
+              activeColor: Colors.yellow,
+              inactiveColor: Colors.yellow.withOpacity(0.3),
+              onChanged: (value) {
+                BlocProvider.of<AssetAudioBloc>(context).add(
+                  SeekAssetAudio(
+                      seekDuration: Duration(milliseconds: value.toInt())),
+                );
+              },
+              max: totalDuration.inMilliseconds.toDouble(),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: BlocBuilder<AssetAudioBloc, AssetAudioState>(
@@ -40,6 +58,19 @@ class _AssetAudioPlayerState extends State<AssetAudioPlayer> {
                       .listen((currentPosition) {
                     setState(() {
                       position = currentPosition;
+                    });
+                  });
+                  state.audioPlayer.onDurationChanged.listen((duration) {
+                    setState(() {
+                      totalDuration = duration;
+                    });
+                  });
+                  state.audioPlayer.onPlayerCompletion.listen((_) {
+                    BlocProvider.of<AssetAudioBloc>(context)
+                        .add(StopAssetAudio());
+                    setState(() {
+                      position = const Duration(milliseconds: 0);
+                      totalDuration = const Duration(milliseconds: 0);
                     });
                   });
                   return Column(

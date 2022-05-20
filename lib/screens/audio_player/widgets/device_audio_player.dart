@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluuter_boilerplate/screens/audio_player/widgets/file_audio_player.dart';
 import 'package:fluuter_boilerplate/utils/extensions/functions.dart';
 
 class DeviceAudioFile extends StatefulWidget {
@@ -47,17 +48,18 @@ class _DeviceAudioFileState extends State<DeviceAudioFile> {
     return Scaffold(
       body: ListView.builder(
         itemCount: mapAudioFiles.length,
+        padding: const EdgeInsets.only(bottom: 75),
         itemBuilder: (context, index) {
           return ListTile(
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => StorageVideoPlayer(
-              //       videoPath: mapAudioFiles[index].path,
-              //     ),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FileAudioPlayer(
+                    audioPath: mapAudioFiles[index].path,
+                  ),
+                ),
+              );
             },
             title: Card(
               child: ListTile(

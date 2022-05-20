@@ -10,4 +10,6 @@ class GithubLinks {
       'https://github.com/gautamswostik/some-flutter-lessons/tree/image-picker';
   static const String videoPlayerBranch =
       'https://github.com/gautamswostik/some-flutter-lessons/tree/video-player';
+  static const String audioPlayerBranch =
+      'https://github.com/gautamswostik/some-flutter-lessons/tree/audio-player';
 }
