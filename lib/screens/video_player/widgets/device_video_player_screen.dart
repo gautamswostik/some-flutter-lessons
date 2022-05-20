@@ -30,7 +30,6 @@ class _StorageVideoPlayerState extends State<StorageVideoPlayer> {
       if (_controller.value.position == _controller.value.duration) {
         setState(() {
           !_controller.value.isPlaying;
-          Navigator.of(context).pop();
         });
       }
     });
@@ -51,7 +50,16 @@ class _StorageVideoPlayerState extends State<StorageVideoPlayer> {
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              VideoPlayer(_controller),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _controller.value.isPlaying
+                        ? _controller.pause()
+                        : _controller.play();
+                  });
+                },
+                child: VideoPlayer(_controller),
+              ),
               Builder(builder: (context) {
                 return AnimatedOpacity(
                   opacity: _controller.value.isPlaying ? 0 : 1,
