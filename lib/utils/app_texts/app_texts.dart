@@ -6,6 +6,7 @@ class AppTexts {
   static const String localization = 'Localization';
   static const String imagePicker = 'Image and Video Picker';
   static const String videoPlayer = 'Video Player';
+  static const String audioPlayer = 'Audio Player';
 
   static const String darkModeAppTitle = 'Change Theme';
 
@@ -23,4 +24,8 @@ class AppTexts {
   static const String networkVideo = 'Network Video';
   static const String fileVideo = 'File Video';
   static const String deviceVideo = 'Device Video';
+
+  static const String networkAudio = 'Network Audio';
+  static const String asserAudio = 'Asset Audio';
+  static const String deviceAudio = 'Device Audio';
 }

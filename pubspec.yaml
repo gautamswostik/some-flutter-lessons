@@ -44,6 +44,8 @@ dependencies:
   image_picker: ^0.8.5
   video_player: ^2.3.0
   permission_handler: ^9.2.0
+  flutter_local_notifications: ^9.4.1
+  audioplayers: ^0.20.1
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +78,7 @@ flutter:
     - assets/languages/es.json
     - assets/languages/ko.json
     - assets/languages/ne.json
+    - assets/sounds/bensound-ukulele.mp3
     - assets/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
