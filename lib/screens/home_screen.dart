@@ -35,7 +35,18 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Card(
               child: ListTile(
-                leading: Image.asset('assets/images/theme.png'),
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    FontAwesomeIcons.moon,
+                    size: 35,
+                    color: Colors.black,
+                  ),
+                ),
                 title: Text(AppTexts.darkMode.translateTo(context)),
                 onTap: () {
                   Navigator.of(context).push(
@@ -49,7 +60,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Card(
               child: ListTile(
-                leading: Image.asset('assets/images/translation.png'),
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.language,
+                    size: 35,
+                    color: Colors.black,
+                  ),
+                ),
                 title: Text(AppTexts.localization.translateTo(context)),
                 onTap: () {
                   Navigator.of(context).push(
@@ -62,7 +84,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Card(
               child: ListTile(
-                leading: Image.asset('assets/images/imagepicker.png'),
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.image,
+                    size: 35,
+                    color: Colors.black,
+                  ),
+                ),
                 title: Text(AppTexts.imagePicker.translateTo(context)),
                 onTap: () {
                   Navigator.of(context).push(
@@ -75,7 +108,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Card(
               child: ListTile(
-                leading: Image.asset('assets/images/video_player.png'),
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.video_collection,
+                    size: 35,
+                    color: Colors.black,
+                  ),
+                ),
                 title: Text(AppTexts.videoPlayer.translateTo(context)),
                 onTap: () {
                   Navigator.of(context).push(
@@ -88,8 +132,43 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Card(
               child: ListTile(
-                leading: Image.asset('assets/images/music.png'),
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.music_note,
+                    size: 35,
+                    color: Colors.black,
+                  ),
+                ),
                 title: Text(AppTexts.audioPlayer.translateTo(context)),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const AudioPlayerScreen(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.camera,
+                    size: 35,
+                    color: Colors.black,
+                  ),
+                ),
+                title: Text(AppTexts.camera.translateTo(context)),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(

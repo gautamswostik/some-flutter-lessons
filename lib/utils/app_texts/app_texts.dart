@@ -7,6 +7,7 @@ class AppTexts {
   static const String imagePicker = 'Image and Video Picker';
   static const String videoPlayer = 'Video Player';
   static const String audioPlayer = 'Audio Player';
+  static const String camera = 'Camera';
 
   static const String darkModeAppTitle = 'Change Theme';
 
