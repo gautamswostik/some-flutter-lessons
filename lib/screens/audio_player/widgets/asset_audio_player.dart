@@ -116,7 +116,8 @@ class _AssetAudioPlayerState extends State<AssetAudioPlayer> {
                 ),
               ],
             ),
-          )
+          ),
+          const Text('Music by Shiki Shiroiwa'),
         ],
       ),
     );

@@ -54,7 +54,7 @@ void main() {
         'Should play and emit AssetAudioPlaying when PlayAssetAudio',
         setUp: () async {
           when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.STOPPED);
-          String audioasset = "assets/sounds/bensound-ukulele.mp3";
+          String audioasset = "assets/sounds/Sunflower_Bloom_better.mp3";
           ByteData bytes =
               await rootBundle.load(audioasset); //load sound from assets
           Uint8List soundbytes = bytes.buffer
@@ -67,7 +67,7 @@ void main() {
         act: (bloc) => bloc.add(PlayAssetAudio()),
         expect: () => [isA<AssetAudioPlaying>()],
         verify: (bloc) async {
-          String audioasset = "assets/sounds/bensound-ukulele.mp3";
+          String audioasset = "assets/sounds/Sunflower_Bloom_better.mp3";
           ByteData bytes =
               await rootBundle.load(audioasset); //load sound from assets
           Uint8List soundbytes = bytes.buffer
