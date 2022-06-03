@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluuter_boilerplate/screens/app_theme/app_theme_screen.dart';
 import 'package:fluuter_boilerplate/screens/audio_player/audio_player_screen.dart';
+import 'package:fluuter_boilerplate/screens/camera/camera_screen.dart';
+import 'package:fluuter_boilerplate/screens/camera/camera_test.dart';
 import 'package:fluuter_boilerplate/screens/image_picker/image_picker_screen.dart';
 import 'package:fluuter_boilerplate/screens/localization/app_language_screen.dart';
 import 'package:fluuter_boilerplate/screens/video_player/video_player_screen.dart';
@@ -172,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const AudioPlayerScreen(),
+                      builder: (context) => const CameraScreen(),
                     ),
                   );
                 },

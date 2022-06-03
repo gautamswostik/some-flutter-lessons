@@ -14,7 +14,7 @@ class DeviceAudioFile extends StatefulWidget {
 class _DeviceAudioFileState extends State<DeviceAudioFile> {
   List<FileSystemEntity> mapAudioFiles = [];
   Future<List<FileSystemEntity>> loadAudio() async {
-    permissionHandler();
+    storagePermissionHandler();
     String path = '/storage/emulated/0/Music';
 
     if (await Directory(path).exists()) {

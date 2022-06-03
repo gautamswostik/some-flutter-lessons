@@ -14,7 +14,7 @@ class DeviceVideos extends StatefulWidget {
 class _DeviceVideosState extends State<DeviceVideos> {
   List<FileSystemEntity> mapVideoFiles = [];
   Future<List<FileSystemEntity>> loadVideo() async {
-    permissionHandler();
+    storagePermissionHandler();
     String path = '/storage/emulated/0/DCIM/Camera';
 
     if (await Directory(path).exists()) {
@@ -76,5 +76,3 @@ class _DeviceVideosState extends State<DeviceVideos> {
     );
   }
 }
-
-

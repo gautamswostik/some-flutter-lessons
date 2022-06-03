@@ -10,7 +10,7 @@ launchInBrowser(String url) async {
   }
 }
 
-void permissionHandler() async {
+void storagePermissionHandler() async {
   final status = await Permission.storage.status;
   const statusManageStorage = Permission.manageExternalStorage;
   if (status.isDenied ||
@@ -21,6 +21,19 @@ void permissionHandler() async {
       Permission.mediaLibrary,
       Permission.requestInstallPackages,
       Permission.manageExternalStorage,
+    ].request();
+  }
+}
+
+void cameraPermissionHandler() async {
+  final status = await Permission.camera.status;
+  const statusManageStorage = Permission.camera;
+  if (status.isDenied ||
+      !status.isGranted ||
+      !await statusManageStorage.isGranted) {
+    await [
+      Permission.camera,
+      Permission.storage,
     ].request();
   }
 }
