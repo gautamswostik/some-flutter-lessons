@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:fluuter_boilerplate/main.dart';
+import 'package:fluuter_boilerplate/screens/camera/image_preview.dart';
+import 'package:fluuter_boilerplate/utils/extensions/functions.dart';
+import 'package:fluuter_boilerplate/widgets/custom_button.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
@@ -9,18 +14,38 @@ class CameraScreen extends StatefulWidget {
   State<CameraScreen> createState() => _CameraScreenState();
 }
 
-class _CameraScreenState extends State<CameraScreen> {
+class _CameraScreenState extends State<CameraScreen>
+    with WidgetsBindingObserver {
   CameraController? _controller;
 
-  int _pointers = 0;
-  double _minAvailableZoom = 1.0;
-  double _maxAvailableZoom = 1.0;
-  double _currentScale = 1.0;
-  double _baseScale = 1.0;
   @override
   void initState() {
     super.initState();
+    cameraPermissionHandler();
     onNewCameraSelected(cameras[1]);
+  }
+
+  void _showCameraException(CameraException e) {
+    showInSnackBar('Error: ${e.code}\n${e.description}');
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final CameraController? cameraController = _controller;
+
+    // App state changed before we got the chance to initialize.
+    if (cameraController == null || !cameraController.value.isInitialized) {
+      return;
+    }
+
+    if (state == AppLifecycleState.inactive) {
+      // Free up memory when camera not active
+      cameraController.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      // Reinitialize the camera with same properties
+      onNewCameraSelected(cameraController.description);
+    }
+    super.didChangeAppLifecycleState(state);
   }
 
   void showInSnackBar(String message) {
@@ -59,44 +84,42 @@ class _CameraScreenState extends State<CameraScreen> {
     try {
       await cameraController.initialize();
     } on CameraException catch (e) {
-      debugPrint('Error initializing camera: $e');
+      _showCameraException(e);
     }
   }
 
-  void _handleScaleStart(ScaleStartDetails details) {
-    _baseScale = _currentScale;
+  Future<XFile> takePicture() async {
+    try {
+      final XFile file = await _controller!.takePicture();
+      return file;
+    } on CameraException catch (e) {
+      _showCameraException(e);
+      rethrow;
+    }
   }
 
-  Future<void> _handleScaleUpdate(ScaleUpdateDetails details) async {
-    // When there are not exactly two fingers on screen don't scale
-    if (_controller == null || _pointers != 2) {
-      return;
-    }
-
-    _currentScale = (_baseScale * details.scale)
-        .clamp(_minAvailableZoom, _maxAvailableZoom);
-
-    await _controller!.setZoomLevel(_currentScale);
+  void saveImage(XFile image) async {
+    createFolder().then((value) async {
+      File imageFile = File(image.path);
+      String fileFormat = imageFile.path.split('.').last;
+      await imageFile
+          .copy('$value/${DateTime.now().millisecondsSinceEpoch}.$fileFormat');
+    });
   }
 
-  void onViewFinderTap(TapDownDetails details, BoxConstraints constraints) {
-    if (_controller == null) {
-      return;
+  Future<String> createFolder() async {
+    final path = Directory("storage/emulated/0/DCIM/boilerplate_images");
+
+    if ((await path.exists())) {
+      return path.path;
+    } else {
+      path.create();
+      return path.path;
     }
-
-    final CameraController cameraController = _controller!;
-
-    final Offset offset = Offset(
-      details.localPosition.dx / constraints.maxWidth,
-      details.localPosition.dy / constraints.maxHeight,
-    );
-    cameraController.setExposurePoint(offset);
-    cameraController.setFocusPoint(offset);
   }
 
   @override
   void dispose() {
-    // Dispose of the controller when the widget is disposed.
     _controller?.dispose();
     super.dispose();
   }
@@ -104,79 +127,95 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Camera Screen'),
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: Stack(
-                children: [
-                  Listener(
-                    onPointerDown: (_) => _pointers++,
-                    onPointerUp: (_) => _pointers--,
-                    child: CameraPreview(
-                      _controller!,
-                      child: LayoutBuilder(
-                        builder:
-                            (BuildContext context, BoxConstraints constraints) {
-                          return GestureDetector(
-                            behavior: HitTestBehavior.opaque,
-                            onScaleStart: _handleScaleStart,
-                            onScaleUpdate: _handleScaleUpdate,
-                            onTapDown: (TapDownDetails details) =>
-                                onViewFinderTap(details, constraints),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: cameras
-                        .map(
-                          (e) => ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.transparent,
-                              elevation: 8,
-                            ),
-                            onPressed: () {
-                              onNewCameraSelected(e);
-                            },
-                            child: Text(e.name),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                  // ListView.separated(
-                  //   padding: const EdgeInsets.all(7),
-                  //   scrollDirection: Axis.horizontal,
-                  //   itemCount: cameras.length,
-                  //   itemBuilder: (context, index) {
-                  //     return Text(cameras[index].name);
-                  //   },
-                  //   separatorBuilder: (BuildContext context, int index) {
-                  //     return const SizedBox(width: 5);
-                  //   },
-                  // ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 8,
-                    shape: const CircleBorder(),
-                    minimumSize: const Size.square(80),
-                  ),
-                  onPressed: () async {},
-                  child: const Icon(Icons.camera),
+      appBar: AppBar(
+        title: const Text('Camera Screen'),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black,
+                border: Border.all(
+                  color: Colors.purple,
+                  width: 3.0,
                 ),
               ),
+              child: CameraPreview(
+                _controller!,
+              ),
             ),
-          ],
-        ));
+          ),
+          //* List of cameras in the system
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: cameras
+          //       .map(
+          //         (e) => ElevatedButton(
+          //           style: ElevatedButton.styleFrom(
+          //             // primary: Colors.transparent,
+          //             elevation: 8,
+          //           ),
+          //           onPressed: () {
+          //             onNewCameraSelected(e);
+          //           },
+          //           child: Text(e.name),
+          //         ),
+          //       )
+          //       .toList(),
+          // ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CustomCircularButtonWithIcon(
+                onPressed: () async {
+                  if (_controller!.description.name == '1') {
+                    onNewCameraSelected(
+                      const CameraDescription(
+                          name: "2",
+                          sensorOrientation: 90,
+                          lensDirection: CameraLensDirection.back),
+                    );
+                  } else {
+                    onNewCameraSelected(
+                      const CameraDescription(
+                          name: "1",
+                          sensorOrientation: 270,
+                          lensDirection: CameraLensDirection.front),
+                    );
+                  }
+                },
+                buttonIcon: Icons.flip_camera_android,
+              ),
+              CustomCircularButtonWithIcon(
+                onPressed: () async {
+                  await takePicture().then(
+                    (value) async {
+                      saveImage(value);
+                      // if (!mounted) return;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (cotext) => ImagePreviewWIdget(
+                            image: value,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                buttonIcon: Icons.camera,
+              ),
+              const SizedBox(),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+    );
   }
 }

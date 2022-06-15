@@ -25,12 +25,22 @@ void storagePermissionHandler() async {
   }
 }
 
+void storagePermissionHandlerForCamera() async {
+  final status = await Permission.storage.status;
+
+  if (status.isDenied || !status.isGranted) {
+    await [
+      Permission.storage,
+    ].request();
+  }
+}
+
 void cameraPermissionHandler() async {
   final status = await Permission.camera.status;
-  const statusManageStorage = Permission.camera;
+  const statusManageCamera = Permission.camera;
   if (status.isDenied ||
       !status.isGranted ||
-      !await statusManageStorage.isGranted) {
+      !await statusManageCamera.isGranted) {
     await [
       Permission.camera,
       Permission.storage,
