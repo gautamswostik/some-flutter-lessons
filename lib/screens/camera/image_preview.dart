@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
+import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImagePreviewWIdget extends StatelessWidget {
@@ -10,7 +12,9 @@ class ImagePreviewWIdget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Image Preview'),
+        title: Text(
+          AppTexts.imagePreview.translateTo(context),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(

@@ -29,4 +29,8 @@ class AppTexts {
   static const String networkAudio = 'Network Audio';
   static const String asserAudio = 'Asset Audio';
   static const String deviceAudio = 'Device Audio';
+
+  //camera texts
+  static const String imagePreview = 'Image Preview';
+  static const String cameraScreen = 'Camera Screen';
 }

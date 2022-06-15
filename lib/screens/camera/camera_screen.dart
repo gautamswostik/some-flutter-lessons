@@ -4,7 +4,9 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:fluuter_boilerplate/main.dart';
 import 'package:fluuter_boilerplate/screens/camera/image_preview.dart';
+import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
 import 'package:fluuter_boilerplate/utils/extensions/functions.dart';
+import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
 import 'package:fluuter_boilerplate/widgets/custom_button.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -128,7 +130,9 @@ class _CameraScreenState extends State<CameraScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Camera Screen'),
+        title: Text(
+          AppTexts.cameraScreen.translateTo(context),
+        ),
       ),
       body: Column(
         children: [
