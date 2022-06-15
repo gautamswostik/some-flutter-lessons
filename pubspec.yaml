@@ -48,6 +48,8 @@ dependencies:
   audioplayers: ^0.20.1
   camera: ^0.9.7
   dartz: ^0.10.1
+  flutter_map: ^1.0.0
+  geolocator: ^8.2.1
 
 dev_dependencies:
   flutter_test:

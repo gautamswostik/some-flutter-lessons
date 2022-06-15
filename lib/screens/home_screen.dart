@@ -4,6 +4,7 @@ import 'package:fluuter_boilerplate/screens/audio_player/audio_player_screen.dar
 import 'package:fluuter_boilerplate/screens/camera/camera_screen.dart';
 import 'package:fluuter_boilerplate/screens/image_picker/image_picker_screen.dart';
 import 'package:fluuter_boilerplate/screens/localization/app_language_screen.dart';
+import 'package:fluuter_boilerplate/screens/map/map_screen.dart';
 import 'package:fluuter_boilerplate/screens/video_player/video_player_screen.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/gitbub_links.dart';
@@ -179,6 +180,31 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
+            Card(
+              child: ListTile(
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.location_history,
+                    size: 35,
+                    color: Colors.black,
+                  ),
+                ),
+                title: Text(AppTexts.map.translateTo(context)),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const MapScreen(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            
           ],
         ),
       ),

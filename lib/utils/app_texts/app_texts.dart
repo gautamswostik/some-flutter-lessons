@@ -8,6 +8,7 @@ class AppTexts {
   static const String videoPlayer = 'Video Player';
   static const String audioPlayer = 'Audio Player';
   static const String camera = 'Camera';
+  static const String map = 'Map';
 
   static const String darkModeAppTitle = 'Change Theme';
 

@@ -63,17 +63,17 @@ class _FileVideoPlayerState extends State<FileVideoPlayer> {
                             : _controller.play();
                       });
                     },
-                    child: Icon(
-                      _controller.value.isPlaying
-                          ? Icons.pause
-                          : Icons.play_arrow,
-                      size: 30,
-                    ),
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),
                       padding: const EdgeInsets.all(10),
                       primary: Colors.white,
                       onPrimary: Colors.black,
+                    ),
+                    child: Icon(
+                      _controller.value.isPlaying
+                          ? Icons.pause
+                          : Icons.play_arrow,
+                      size: 30,
                     ),
                   ),
                 ),
