@@ -78,7 +78,7 @@ class _FileAudioPlayerState extends State<FileAudioPlayer> {
               child: BlocBuilder<DeviceAudioBloc, DeviceAudioState>(
                 builder: (context, state) {
                   if (state is DeviceAudioPlaying) {
-                    state.audioPlayer.onAudioPositionChanged
+                    state.audioPlayer.onPositionChanged
                         .listen((currentPosition) {
                       setState(() {
                         position = currentPosition;
@@ -89,7 +89,7 @@ class _FileAudioPlayerState extends State<FileAudioPlayer> {
                         totalDuration = duration;
                       });
                     });
-                    state.audioPlayer.onPlayerCompletion.listen((_) {
+                    state.audioPlayer.onSeekComplete.listen((_) {
                       BlocProvider.of<DeviceAudioBloc>(context)
                           .add(StopDeviceAudio());
                       setState(() {

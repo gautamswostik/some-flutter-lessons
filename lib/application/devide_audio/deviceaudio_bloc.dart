@@ -14,20 +14,20 @@ class DeviceAudioBloc extends Bloc<DeviceAudioEvent, DeviceAudioState> {
     on<DeviceAudioEvent>((event, emit) {});
     on<PlayDeviceAudio>(
       (event, emit) async {
-        if (audioPlayer.state == PlayerState.PAUSED) {
+        if (audioPlayer.state == PlayerState.paused) {
           await audioPlayer.resume();
 
           emit(DeviceAudioPlaying(
             audioPlayer: audioPlayer,
           ));
-        } else if (audioPlayer.state == PlayerState.STOPPED) {
-          audioPlayer.play(
+        } else if (audioPlayer.state == PlayerState.stopped) {
+          audioPlayer.play(UrlSource(
             event.songUrl,
-          );
+          ));
           emit(DeviceAudioPlaying(
             audioPlayer: audioPlayer,
           ));
-        } else if (audioPlayer.state == PlayerState.PLAYING) {
+        } else if (audioPlayer.state == PlayerState.playing) {
           audioPlayer.pause();
 
           emit(DeviceAudioPaused());
