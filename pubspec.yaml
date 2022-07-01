@@ -50,6 +50,7 @@ dependencies:
   dartz: ^0.10.1
   flutter_map: ^1.0.0
   geolocator: ^8.2.1
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,7 @@ flutter:
     - assets/languages/ko.json
     - assets/languages/ne.json
     - assets/sounds/Sunflower_Bloom_better.mp3
+    - assets/env/.env
     - assets/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
