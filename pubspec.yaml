@@ -43,13 +43,14 @@ dependencies:
     sdk: flutter
   image_picker: ^0.8.5
   video_player: ^2.3.0
-  permission_handler: ^9.2.0
+  permission_handler: ^10.0.0
   flutter_local_notifications: ^9.4.1
-  audioplayers: ^0.20.1
+  audioplayers: ^1.0.1
   camera: ^0.9.7
   dartz: ^0.10.1
   flutter_map: ^1.0.0
-  geolocator: ^8.2.1
+  geolocator: ^9.0.0
+  qr_code_scanner: ^1.0.0
   flutter_dotenv: ^5.0.2
 
 dev_dependencies:

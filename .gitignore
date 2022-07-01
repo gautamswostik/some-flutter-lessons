@@ -48,3 +48,4 @@ app.*.map.json
 # ignores form 
 lib/screens/qr/workaround
 assets/env/.env
+
