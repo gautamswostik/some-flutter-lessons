@@ -31,7 +31,7 @@ void main() {
       blocTest<NetworkAudioBloc, NetworkAudioState>(
         'Should resume and emit NetworkAudioPaused when PlayNetworkAudio',
         setUp: () {
-          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.PAUSED);
+          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.paused);
           when(mockAudioPlayer.resume()).thenAnswer((_) async => 1);
         },
         build: () => NetworkAudioBloc(audioPlayer: mockAudioPlayer),
@@ -45,24 +45,24 @@ void main() {
       blocTest<NetworkAudioBloc, NetworkAudioState>(
         'Should play and emit NetworkAudioPlaying when PlayNetworkAudio',
         setUp: () {
-          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.STOPPED);
-          when(mockAudioPlayer
-                  .play('https://stream.live.vc.bbcmedia.co.uk/bbc_radio_one'))
+          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.stopped);
+          when(mockAudioPlayer.play(UrlSource(
+                  'https://stream.live.vc.bbcmedia.co.uk/bbc_radio_one')))
               .thenAnswer((_) async => 1);
         },
         build: () => NetworkAudioBloc(audioPlayer: mockAudioPlayer),
         act: (bloc) => bloc.add(PlayNetworkAudio()),
         expect: () => [isA<NetworkAudioPlaying>()],
         verify: (bloc) {
-          mockAudioPlayer
-              .play('https://stream.live.vc.bbcmedia.co.uk/bbc_radio_one');
+          mockAudioPlayer.play(
+              UrlSource('https://stream.live.vc.bbcmedia.co.uk/bbc_radio_one'));
         },
       );
 
       blocTest<NetworkAudioBloc, NetworkAudioState>(
         'Should pause and emit NetworkAudioPaused when PlayNetworkAudio',
         setUp: () {
-          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.PLAYING);
+          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.playing);
           when(mockAudioPlayer.pause()).thenAnswer((_) async => 1);
         },
         build: () => NetworkAudioBloc(audioPlayer: mockAudioPlayer),

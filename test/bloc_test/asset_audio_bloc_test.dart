@@ -38,7 +38,7 @@ void main() {
       blocTest<AssetAudioBloc, AssetAudioState>(
         'Should resume and emit AssetAudioPaused when PlayAssetAudio',
         setUp: () {
-          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.PAUSED);
+          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.paused);
           when(mockAudioPlayer.resume()).thenAnswer((_) async => 1);
         },
         build: () => AssetAudioBloc(
@@ -53,13 +53,13 @@ void main() {
       blocTest<AssetAudioBloc, AssetAudioState>(
         'Should play and emit AssetAudioPlaying when PlayAssetAudio',
         setUp: () async {
-          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.STOPPED);
+          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.stopped);
           String audioasset = "assets/sounds/Sunflower_Bloom_better.mp3";
           ByteData bytes =
               await rootBundle.load(audioasset); //load sound from assets
           Uint8List soundbytes = bytes.buffer
               .asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
-          when(mockAudioPlayer.playBytes(soundbytes))
+          when(mockAudioPlayer.play(BytesSource(soundbytes)))
               .thenAnswer((_) async => 1);
         },
         build: () => AssetAudioBloc(
@@ -72,14 +72,14 @@ void main() {
               await rootBundle.load(audioasset); //load sound from assets
           Uint8List soundbytes = bytes.buffer
               .asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
-          mockAudioPlayer.playBytes(soundbytes);
+          mockAudioPlayer.play(BytesSource(soundbytes));
         },
       );
 
       blocTest<AssetAudioBloc, AssetAudioState>(
         'Should pause and emit AssetAudioPaused when PlayAssetAudio',
         setUp: () {
-          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.PLAYING);
+          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.playing);
           when(mockAudioPlayer.pause()).thenAnswer((_) async => 1);
         },
         build: () => AssetAudioBloc(

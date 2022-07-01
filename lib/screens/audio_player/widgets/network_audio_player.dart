@@ -41,7 +41,7 @@ class _NetworkAudioPlayerState extends State<NetworkAudioPlayer> {
             child: BlocBuilder<NetworkAudioBloc, NetworkAudioState>(
               builder: (context, state) {
                 if (state is NetworkAudioPlaying) {
-                  state.audioPlayer.onAudioPositionChanged
+                  state.audioPlayer.onPositionChanged
                       .listen((currentPosition) {
                     setState(() {
                       position = currentPosition;
