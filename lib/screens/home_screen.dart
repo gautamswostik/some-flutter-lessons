@@ -5,6 +5,7 @@ import 'package:fluuter_boilerplate/screens/camera/camera_screen.dart';
 import 'package:fluuter_boilerplate/screens/image_picker/image_picker_screen.dart';
 import 'package:fluuter_boilerplate/screens/localization/app_language_screen.dart';
 import 'package:fluuter_boilerplate/screens/map/map_screen.dart';
+import 'package:fluuter_boilerplate/screens/qr/qr_screen.dart';
 import 'package:fluuter_boilerplate/screens/video_player/video_player_screen.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/gitbub_links.dart';
@@ -15,6 +16,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.themeValue}) : super(key: key);
   final bool themeValue;
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -204,7 +206,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
-            
+            Card(
+              child: ListTile(
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.qr_code,
+                    size: 35,
+                    color: Colors.black,
+                  ),
+                ),
+                title: Text(AppTexts.qr.translateTo(context)),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const QrScannerScreeen(),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
