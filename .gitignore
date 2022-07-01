@@ -44,4 +44,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# ignores form 
 lib/screens/qr/workaround
+assets/env/.env
+
