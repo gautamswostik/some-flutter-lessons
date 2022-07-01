@@ -19,25 +19,27 @@ class AssetAudioBloc extends Bloc<AssetAudioEvent, AssetAudioState> {
 
     on<PlayAssetAudio>(
       (event, emit) async {
-        if (audioPlayer.state == PlayerState.PAUSED) {
+        if (audioPlayer.state == PlayerState.paused) {
           await audioPlayer.resume();
-
-          emit(AssetAudioPlaying(
-            audioPlayer: audioPlayer,
-          ));
-        } else if (audioPlayer.state == PlayerState.STOPPED) {
+          emit(
+            AssetAudioPlaying(
+              audioPlayer: audioPlayer,
+            ),
+          );
+        } else if (audioPlayer.state == PlayerState.stopped) {
           String audioasset = "assets/sounds/Sunflower_Bloom_better.mp3";
           ByteData bytes =
               await rootBundle.load(audioasset); //load sound from assets
           Uint8List soundbytes = bytes.buffer
               .asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
-          await audioPlayer.playBytes(soundbytes);
+          await audioPlayer.play(
+            BytesSource(soundbytes),
+          );
           emit(AssetAudioPlaying(
             audioPlayer: audioPlayer,
           ));
-        } else if (audioPlayer.state == PlayerState.PLAYING) {
+        } else if (audioPlayer.state == PlayerState.playing) {
           audioPlayer.pause();
-
           emit(AssetAudioPaused());
         }
       },
@@ -54,7 +56,6 @@ class AssetAudioBloc extends Bloc<AssetAudioEvent, AssetAudioState> {
     on<StopAssetAudio>(
       (event, emit) async {
         await audioPlayer.stop();
-
         emit(AssetAudioPaused());
       },
     );

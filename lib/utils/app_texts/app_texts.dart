@@ -8,6 +8,8 @@ class AppTexts {
   static const String videoPlayer = 'Video Player';
   static const String audioPlayer = 'Audio Player';
   static const String camera = 'Camera';
+  static const String map = 'Map';
+  static const String qr = 'QR Scanner';
 
   static const String darkModeAppTitle = 'Change Theme';
 
@@ -33,4 +35,5 @@ class AppTexts {
   //camera texts
   static const String imagePreview = 'Image Preview';
   static const String cameraScreen = 'Camera Screen';
+  static const String scannedData = 'Scanned Data';
 }

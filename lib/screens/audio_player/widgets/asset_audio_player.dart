@@ -34,7 +34,9 @@ class _AssetAudioPlayerState extends State<AssetAudioPlayer> {
           SliderTheme(
             data: const SliderThemeData(
               trackHeight: 4,
-              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8),
+              thumbShape: RoundSliderThumbShape(
+                enabledThumbRadius: 8,
+              ),
             ),
             child: Slider(
               value: position.inMilliseconds.toDouble(),
@@ -54,8 +56,7 @@ class _AssetAudioPlayerState extends State<AssetAudioPlayer> {
             child: BlocBuilder<AssetAudioBloc, AssetAudioState>(
               builder: (context, state) {
                 if (state is AssetAudioPlaying) {
-                  state.audioPlayer.onAudioPositionChanged
-                      .listen((currentPosition) {
+                  state.audioPlayer.onPositionChanged.listen((currentPosition) {
                     setState(() {
                       position = currentPosition;
                     });
@@ -65,7 +66,7 @@ class _AssetAudioPlayerState extends State<AssetAudioPlayer> {
                       totalDuration = duration;
                     });
                   });
-                  state.audioPlayer.onPlayerCompletion.listen((_) {
+                  state.audioPlayer.onPlayerComplete.listen((_) {
                     BlocProvider.of<AssetAudioBloc>(context)
                         .add(StopAssetAudio());
                     setState(() {
