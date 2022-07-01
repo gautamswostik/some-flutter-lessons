@@ -14,20 +14,20 @@ class NetworkAudioBloc extends Bloc<NetworkrAudioEvent, NetworkAudioState> {
     on<NetworkrAudioEvent>((event, emit) {});
     on<PlayNetworkAudio>(
       (event, emit) async {
-        if (audioPlayer.state == PlayerState.PAUSED) {
+        if (audioPlayer.state == PlayerState.paused) {
           await audioPlayer.resume();
-          
+
           emit(NetworkAudioPlaying(
             audioPlayer: audioPlayer,
           ));
-        } else if (audioPlayer.state == PlayerState.STOPPED) {
-          audioPlayer.play(
+        } else if (audioPlayer.state == PlayerState.stopped) {
+          audioPlayer.play(UrlSource(
             'https://stream.live.vc.bbcmedia.co.uk/bbc_radio_one',
-          );
+          ));
           emit(NetworkAudioPlaying(
             audioPlayer: audioPlayer,
           ));
-        } else if (audioPlayer.state == PlayerState.PLAYING) {
+        } else if (audioPlayer.state == PlayerState.playing) {
           audioPlayer.pause();
 
           emit(NetworkAudioPaused());

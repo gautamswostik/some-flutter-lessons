@@ -31,7 +31,7 @@ void main() {
       blocTest<DeviceAudioBloc, DeviceAudioState>(
         'Should resume and emit DeviceAudioPaused when PlayDeviceAudio',
         setUp: () {
-          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.PAUSED);
+          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.paused);
           when(mockAudioPlayer.resume()).thenAnswer((_) async => 1);
         },
         build: () => DeviceAudioBloc(audioPlayer: mockAudioPlayer),
@@ -45,21 +45,21 @@ void main() {
       blocTest<DeviceAudioBloc, DeviceAudioState>(
         'Should play and emit DeviceAudioPlaying when PlayDeviceAudio',
         setUp: () {
-          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.STOPPED);
-          when(mockAudioPlayer.play('url')).thenAnswer((_) async => 1);
+          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.stopped);
+          when(mockAudioPlayer.play(UrlSource('url'))).thenAnswer((_) async => 1);
         },
         build: () => DeviceAudioBloc(audioPlayer: mockAudioPlayer),
         act: (bloc) => bloc.add(const PlayDeviceAudio(songUrl: 'url')),
         expect: () => [isA<DeviceAudioPlaying>()],
         verify: (bloc) {
-          mockAudioPlayer.play('url');
+          mockAudioPlayer.play(UrlSource('url'));
         },
       );
 
       blocTest<DeviceAudioBloc, DeviceAudioState>(
         'Should pause and emit DeviceAudioPaused when PlayDeviceAudio',
         setUp: () {
-          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.PLAYING);
+          when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.playing);
           when(mockAudioPlayer.pause()).thenAnswer((_) async => 1);
         },
         build: () => DeviceAudioBloc(audioPlayer: mockAudioPlayer),
