@@ -3,5 +3,7 @@ class HiveBox {
 
   static const String themeBox = 'theme';
 
-  static const List<String> hiveBoxes = [themeBox, languageBox];
+  static const String notesBox = 'notes';
+
+  static const List<String> hiveBoxes = [themeBox, languageBox, notesBox];
 }
