@@ -7,6 +7,7 @@ abstract class ILocalNotesRepository {
   Future<void> addNote({required LocalNoteEntity localNoteEntity});
   Future<List<LocalNoteEntity>> getLocalNotes();
   Future<void> editData({required LocalNoteEntity localNoteEntity});
+  Future<void> deleteData({required dynamic key});
 }
 
 class LocalNotesRepository extends ILocalNotesRepository {
@@ -19,15 +20,14 @@ class LocalNotesRepository extends ILocalNotesRepository {
 
   @override
   Future<void> addNote({required LocalNoteEntity localNoteEntity}) async {
-    if (!hive.isAdapterRegistered(1)) {
-      hive.registerAdapter(LocalNoteEntityAdapter());
-    }
+    checkAdpRegistered();
     final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
     await notes.put(uuid.v4(), localNoteEntity);
   }
 
   @override
   Future<List<LocalNoteEntity>> getLocalNotes() async {
+    checkAdpRegistered();
     final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
     List<LocalNoteEntity> savedNotes = notes.values.toList();
     return savedNotes;
@@ -35,6 +35,24 @@ class LocalNotesRepository extends ILocalNotesRepository {
 
   @override
   Future<void> editData({required LocalNoteEntity localNoteEntity}) async {
+    checkAdpRegistered();
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteData({required key}) async {
+    checkAdpRegistered();
+    final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
+    if (notes.containsKey(key)) {
+      await notes.delete(key);
+    } else {
+      throw Exception('Key Not found');
+    }
+  }
+
+  void checkAdpRegistered() {
+    if (!hive.isAdapterRegistered(1)) {
+      hive.registerAdapter(LocalNoteEntityAdapter());
+    }
   }
 }

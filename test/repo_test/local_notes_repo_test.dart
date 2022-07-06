@@ -34,6 +34,8 @@ void main() {
           //arange
           when(mockHiveInterface.openBox<MockLocalNoteEntity>(HiveBox.notesBox))
               .thenAnswer((_) async => mockBox);
+          when(mockHiveInterface.isAdapterRegistered(1))
+              .thenAnswer((_) => true);
           when(mockUuid.v4()).thenAnswer((_) => 'uuid');
 
           //act
@@ -51,6 +53,8 @@ void main() {
           //arange
           when(mockHiveInterface.openBox<MockLocalNoteEntity>(HiveBox.notesBox))
               .thenAnswer((_) async => mockBox);
+          when(mockHiveInterface.isAdapterRegistered(1))
+              .thenAnswer((_) => true);
           when(mockBox.values).thenAnswer((_) => <MockLocalNoteEntity>[]);
 
           //act
@@ -58,6 +62,22 @@ void main() {
               await localNotesRepository.getLocalNotes();
           //verify
           expect(data, <MockLocalNoteEntity>[]);
+          verify(mockHiveInterface.openBox(HiveBox.notesBox));
+        },
+      );
+      test(
+        'Testing Delete Saved note',
+        () async {
+          //arange
+          when(mockHiveInterface.openBox<MockLocalNoteEntity>(HiveBox.notesBox))
+              .thenAnswer((_) async => mockBox);
+          when(mockHiveInterface.isAdapterRegistered(1))
+              .thenAnswer((_) => true);
+          when(mockBox.containsKey('uuid')).thenAnswer((_) => true);
+          //act
+          await localNotesRepository.deleteData(key: 'uuid');
+          //verify
+          verify(mockBox.delete('uuid'));
           verify(mockHiveInterface.openBox(HiveBox.notesBox));
         },
       );
