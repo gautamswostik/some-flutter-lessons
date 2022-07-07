@@ -6,7 +6,8 @@ import 'package:uuid/uuid.dart';
 abstract class ILocalNotesRepository {
   Future<void> addNote({required LocalNoteEntity localNoteEntity});
   Future<List<LocalNoteEntity>> getLocalNotes();
-  Future<void> editData({required LocalNoteEntity localNoteEntity});
+  Future<void> editData(
+      {required dynamic key, required LocalNoteEntity localNoteEntity});
   Future<void> deleteData({required dynamic key});
 }
 
@@ -34,13 +35,19 @@ class LocalNotesRepository extends ILocalNotesRepository {
   }
 
   @override
-  Future<void> editData({required LocalNoteEntity localNoteEntity}) async {
+  Future<void> editData(
+      {required dynamic key, required LocalNoteEntity localNoteEntity}) async {
     checkAdpRegistered();
-    throw UnimplementedError();
+    final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
+    if (notes.containsKey(key)) {
+      await notes.put(key, localNoteEntity);
+    } else {
+      throw Exception('Key Not found');
+    }
   }
 
   @override
-  Future<void> deleteData({required key}) async {
+  Future<void> deleteData({required dynamic key}) async {
     checkAdpRegistered();
     final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
     if (notes.containsKey(key)) {

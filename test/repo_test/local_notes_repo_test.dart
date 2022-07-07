@@ -66,6 +66,23 @@ void main() {
         },
       );
       test(
+        'Testing Edit Saved note',
+        () async {
+          //arange
+          when(mockHiveInterface.openBox<MockLocalNoteEntity>(HiveBox.notesBox))
+              .thenAnswer((_) async => mockBox);
+          when(mockHiveInterface.isAdapterRegistered(1))
+              .thenAnswer((_) => true);
+          when(mockBox.containsKey('uuid')).thenAnswer((_) => true);
+          //act
+          await localNotesRepository.editData(
+              key: 'uuid', localNoteEntity: mockLocalNoteEntity);
+          //verify
+          verify(mockBox.put('uuid', mockLocalNoteEntity));
+          verify(mockHiveInterface.openBox(HiveBox.notesBox));
+        },
+      );
+      test(
         'Testing Delete Saved note',
         () async {
           //arange
