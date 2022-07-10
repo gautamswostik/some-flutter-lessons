@@ -20,11 +20,24 @@ class LocalNewsAdded extends LocalNotesState {
   List<Object> get props => [message];
 }
 
-class LocalNewsAddError extends LocalNotesState {
+class GetSavedLocalNotes extends LocalNotesState {
+  final List<LocalNoteEntity> localNoteEntities;
+
+  const GetSavedLocalNotes({required this.localNoteEntities});
+
+  @override
+  List<Object> get props => [localNoteEntities];
+}
+
+class LocalNoteError extends LocalNotesState {
   final String errorMessage;
 
-  const LocalNewsAddError({required this.errorMessage});
+  const LocalNoteError({required this.errorMessage});
 
   @override
   List<Object> get props => [errorMessage];
 }
+
+class LocalNoteDelted extends LocalNotesState {}
+
+class LocalNoteEdited extends LocalNotesState {}

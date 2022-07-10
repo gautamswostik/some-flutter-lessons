@@ -46,7 +46,8 @@ void main() {
         'Should play and emit DeviceAudioPlaying when PlayDeviceAudio',
         setUp: () {
           when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.stopped);
-          when(mockAudioPlayer.play(UrlSource('url'))).thenAnswer((_) async => 1);
+          when(mockAudioPlayer.play(UrlSource('url')))
+              .thenAnswer((_) async => 1);
         },
         build: () => DeviceAudioBloc(audioPlayer: mockAudioPlayer),
         act: (bloc) => bloc.add(const PlayDeviceAudio(songUrl: 'url')),
@@ -100,6 +101,10 @@ void main() {
           mockAudioPlayer.resume();
         },
       );
+      tearDown(() {
+        mockDeviceAudioBloc.close();
+        mockAudioPlayer.dispose();
+      });
     },
   );
 }

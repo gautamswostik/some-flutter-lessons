@@ -84,6 +84,10 @@ void main() {
           mockAudioPlayer.stop();
         },
       );
+      tearDown(() {
+        mockNetworkAudioBloc.close();
+        mockAudioPlayer.dispose();
+      });
     },
   );
 }

@@ -40,7 +40,11 @@ class AppTexts {
 
   //Local Notes
   static const String notes = 'Notes';
+  static const String noNotes = 'No Notes Available';
   static const String addNote = 'Add Note';
   static const String title = 'Title';
   static const String description = 'Description';
+  static const String titleRequired = 'Title is required';
+  static const String descriptionRequired = 'Description is required';
+  static const String fillAllFields = 'Fill all fields';
 }
