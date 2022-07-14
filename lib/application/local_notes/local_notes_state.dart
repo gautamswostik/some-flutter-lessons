@@ -11,10 +11,10 @@ class LocalNotesInitial extends LocalNotesState {}
 
 class LocalNotesLoading extends LocalNotesState {}
 
-class LocalNewsAdded extends LocalNotesState {
+class LocalNoteAdded extends LocalNotesState {
   final String message;
 
-  const LocalNewsAdded({required this.message});
+  const LocalNoteAdded({required this.message});
 
   @override
   List<Object> get props => [message];

@@ -15,59 +15,65 @@ class LocalNotesBloc extends Bloc<LocalNotesEvent, LocalNotesState> {
 
     on<AddLocalNote>(
       (event, emit) async {
-        // emit(LocalNotesLoading());
-        try {
-          await localNotesRepository.addNote(
-            localNoteEntity: event.localNoteEntity,
-          );
-          emit(const LocalNewsAdded(message: 'Added Sucessfully'));
-        } on HiveError catch (e) {
-          emit(LocalNoteError(errorMessage: e.toString()));
-        }
+        emit(LocalNotesLoading());
+
+        final note = await localNotesRepository.addNote(
+          localNoteEntity: event.localNoteEntity,
+        );
+
+        emit(
+          note.fold(
+            (failure) => LocalNoteError(errorMessage: failure),
+            (success) => const LocalNoteAdded(message: 'Added Sucessfully'),
+          ),
+        );
       },
     );
 
     on<GetLocalNotes>(
       (event, emit) async {
         emit(LocalNotesLoading());
-        try {
-          List<LocalNoteEntity> notes =
-              await localNotesRepository.getLocalNotes();
-          emit(
-            GetSavedLocalNotes(localNoteEntities: notes),
-          );
-        } on HiveError catch (e) {
-          emit(LocalNoteError(errorMessage: e.toString()));
-        }
+
+        final note = await localNotesRepository.getLocalNotes();
+
+        emit(
+          note.fold(
+            (failure) => LocalNoteError(errorMessage: failure),
+            (notes) => GetSavedLocalNotes(localNoteEntities: notes),
+          ),
+        );
       },
     );
 
     on<EditLocalNote>(
       (event, emit) async {
         emit(LocalNotesLoading());
-        try {
-          await localNotesRepository.editData(
-            localNoteEntity: event.localNoteEntity,
-            key: event.key,
-          );
-          emit(LocalNoteEdited());
-        } catch (e) {
-          emit(LocalNoteError(errorMessage: e.toString()));
-        }
+
+        final note = await localNotesRepository.editData(
+          localNoteEntity: event.localNoteEntity,
+          key: event.key,
+        );
+
+        emit(
+          note.fold(
+            (failure) => LocalNoteError(errorMessage: failure),
+            (notes) => LocalNoteEdited(),
+          ),
+        );
       },
     );
 
     on<DeleteLocalNote>(
       (event, emit) async {
         emit(LocalNotesLoading());
-        try {
-          await localNotesRepository.deleteData(key: event.key);
-          emit(
-            LocalNoteDelted(),
-          );
-        } catch (e) {
-          emit(LocalNoteError(errorMessage: e.toString()));
-        }
+        final note = await localNotesRepository.deleteData(key: event.key);
+
+        emit(
+          note.fold(
+            (failure) => LocalNoteError(errorMessage: failure),
+            (notes) => LocalNoteDelted(),
+          ),
+        );
       },
     );
   }

@@ -1,14 +1,16 @@
+import 'package:dartz/dartz.dart';
 import 'package:fluuter_boilerplate/app_setup/hive/hive_box.dart';
 import 'package:fluuter_boilerplate/infrastructure/local_notes/note_adapter/note_entities.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 abstract class ILocalNotesRepository {
-  Future<void> addNote({required LocalNoteEntity localNoteEntity});
-  Future<List<LocalNoteEntity>> getLocalNotes();
-  Future<void> editData(
+  Future<Either<String, Unit>> addNote(
+      {required LocalNoteEntity localNoteEntity});
+  Future<Either<String, List<LocalNoteEntity>>> getLocalNotes();
+  Future<Either<String, Unit>> editData(
       {required dynamic key, required LocalNoteEntity localNoteEntity});
-  Future<void> deleteData({required dynamic key});
+  Future<Either<String, Unit>> deleteData({required dynamic key});
 }
 
 class LocalNotesRepository extends ILocalNotesRepository {
@@ -20,40 +22,61 @@ class LocalNotesRepository extends ILocalNotesRepository {
   final Uuid uuid;
 
   @override
-  Future<void> addNote({required LocalNoteEntity localNoteEntity}) async {
+  Future<Either<String, Unit>> addNote(
+      {required LocalNoteEntity localNoteEntity}) async {
     checkAdpRegistered();
-    final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
-    await notes.put(uuid.v4(), localNoteEntity);
-  }
-
-  @override
-  Future<List<LocalNoteEntity>> getLocalNotes() async {
-    checkAdpRegistered();
-    final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
-    List<LocalNoteEntity> savedNotes = notes.values.toList();
-    return savedNotes;
-  }
-
-  @override
-  Future<void> editData(
-      {required dynamic key, required LocalNoteEntity localNoteEntity}) async {
-    checkAdpRegistered();
-    final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
-    if (notes.containsKey(key)) {
-      await notes.put(key, localNoteEntity);
-    } else {
-      throw Exception('Key Not found');
+    try {
+      final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
+      await notes.put(uuid.v4(), localNoteEntity);
+      return const Right(unit);
+    } on HiveError catch (e) {
+      return Left(e.message);
     }
   }
 
   @override
-  Future<void> deleteData({required dynamic key}) async {
+  Future<Either<String, List<LocalNoteEntity>>> getLocalNotes() async {
     checkAdpRegistered();
-    final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
-    if (notes.containsKey(key)) {
-      await notes.delete(key);
-    } else {
-      throw Exception('Key Not found');
+    try {
+      final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
+      List<LocalNoteEntity> savedNotes = notes.values.toList();
+      return Right(savedNotes);
+    } on HiveError catch (e) {
+      return Left(e.message);
+    }
+  }
+
+  @override
+  Future<Either<String, Unit>> editData(
+      {required dynamic key, required LocalNoteEntity localNoteEntity}) async {
+    checkAdpRegistered();
+
+    try {
+      final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
+      if (notes.containsKey(key)) {
+        await notes.put(key, localNoteEntity);
+        return const Right(unit);
+      } else {
+        return const Left('Key Not found');
+      }
+    } on HiveError catch (e) {
+      return Left(e.message);
+    }
+  }
+
+  @override
+  Future<Either<String, Unit>> deleteData({required dynamic key}) async {
+    checkAdpRegistered();
+    try {
+      final notes = await hive.openBox<LocalNoteEntity>(HiveBox.notesBox);
+      if (notes.containsKey(key)) {
+        await notes.delete(key);
+        return const Right(unit);
+      } else {
+        return const Left('Key Not found');
+      }
+    } on HiveError catch (e) {
+      return Left(e.message);
     }
   }
 

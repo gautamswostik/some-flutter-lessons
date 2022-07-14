@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fluuter_boilerplate/app_setup/hive/hive_box.dart';
 import 'package:fluuter_boilerplate/infrastructure/local_notes/local_notes_repo.dart';
@@ -29,72 +30,60 @@ void main() {
       });
 
       test(
-        'Testing Save Local Note',
+        'Testing Save Local Note Success',
+        () async {
+          //arrange
+          when(mockHiveInterface.isAdapterRegistered(1))
+              .thenAnswer((_) => true);
+          when(mockHiveInterface.openBox<MockLocalNoteEntity>(HiveBox.notesBox))
+              .thenAnswer((_) async => mockBox);
+          when(mockUuid.v4()).thenAnswer((_) => 'uuid');
+          //act
+          final data = await localNotesRepository.addNote(
+              localNoteEntity: mockLocalNoteEntity);
+          expect(data.isRight(), true);
+          //varify
+          verify(mockBox.put('uuid', mockLocalNoteEntity));
+          verify(mockHiveInterface.openBox(HiveBox.notesBox));
+        },
+      );
+
+      test(
+        'Testing Save Local Note Error',
         () async {
           //arange
           when(mockHiveInterface.openBox<MockLocalNoteEntity>(HiveBox.notesBox))
-              .thenAnswer((_) async => mockBox);
+              .thenThrow(HiveError('error'));
           when(mockHiveInterface.isAdapterRegistered(1))
               .thenAnswer((_) => true);
           when(mockUuid.v4()).thenAnswer((_) => 'uuid');
+          //act
+          try {
+            await localNotesRepository.addNote(
+                localNoteEntity: mockLocalNoteEntity);
+          } catch (e) {
+            //verify
+            expect(e, isA<HiveError>());
+          }
+        },
+      );
+
+      test(
+        'Testing Get Local Note Success',
+        () async {
+          //arrange
+          when(mockHiveInterface.isAdapterRegistered(1))
+              .thenAnswer((_) => true);
+          when(mockHiveInterface.openBox<MockLocalNoteEntity>(HiveBox.notesBox))
+              .thenAnswer((_) async => mockBox);
+          when(mockUuid.v4()).thenAnswer((_) => 'uuid');
 
           //act
-          await localNotesRepository.addNote(
+          final data = await localNotesRepository.addNote(
               localNoteEntity: mockLocalNoteEntity);
-          //verify
+          expect(data.isRight(), true);
+          //varify
           verify(mockBox.put('uuid', mockLocalNoteEntity));
-          verify(mockHiveInterface.openBox(HiveBox.notesBox));
-        },
-      );
-
-      test(
-        'Testing get Saved Local Data',
-        () async {
-          //arange
-          when(mockHiveInterface.openBox<MockLocalNoteEntity>(HiveBox.notesBox))
-              .thenAnswer((_) async => mockBox);
-          when(mockHiveInterface.isAdapterRegistered(1))
-              .thenAnswer((_) => true);
-          when(mockBox.values).thenAnswer((_) => <MockLocalNoteEntity>[]);
-
-          //act
-          List<LocalNoteEntity> data =
-              await localNotesRepository.getLocalNotes();
-          //verify
-          expect(data, <MockLocalNoteEntity>[]);
-          verify(mockHiveInterface.openBox(HiveBox.notesBox));
-        },
-      );
-      test(
-        'Testing Edit Saved note',
-        () async {
-          //arange
-          when(mockHiveInterface.openBox<MockLocalNoteEntity>(HiveBox.notesBox))
-              .thenAnswer((_) async => mockBox);
-          when(mockHiveInterface.isAdapterRegistered(1))
-              .thenAnswer((_) => true);
-          when(mockBox.containsKey('uuid')).thenAnswer((_) => true);
-          //act
-          await localNotesRepository.editData(
-              key: 'uuid', localNoteEntity: mockLocalNoteEntity);
-          //verify
-          verify(mockBox.put('uuid', mockLocalNoteEntity));
-          verify(mockHiveInterface.openBox(HiveBox.notesBox));
-        },
-      );
-      test(
-        'Testing Delete Saved note',
-        () async {
-          //arange
-          when(mockHiveInterface.openBox<MockLocalNoteEntity>(HiveBox.notesBox))
-              .thenAnswer((_) async => mockBox);
-          when(mockHiveInterface.isAdapterRegistered(1))
-              .thenAnswer((_) => true);
-          when(mockBox.containsKey('uuid')).thenAnswer((_) => true);
-          //act
-          await localNotesRepository.deleteData(key: 'uuid');
-          //verify
-          verify(mockBox.delete('uuid'));
           verify(mockHiveInterface.openBox(HiveBox.notesBox));
         },
       );

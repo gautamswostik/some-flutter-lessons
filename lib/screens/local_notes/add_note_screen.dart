@@ -40,7 +40,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
       ),
       floatingActionButton: BlocConsumer<LocalNotesBloc, LocalNotesState>(
         listener: (context, state) {
-          if (state is LocalNewsAdded) {
+          if (state is LocalNoteAdded) {
             Navigator.of(context).pop();
           }
           if (state is LocalNoteEdited) {
