@@ -8,11 +8,14 @@ import 'package:fluuter_boilerplate/application/app_theme/theme_cubit.dart';
 import 'package:fluuter_boilerplate/application/asset_audio/assetaudio_bloc.dart';
 import 'package:fluuter_boilerplate/application/devide_audio/deviceaudio_bloc.dart';
 import 'package:fluuter_boilerplate/application/languages/language_cubit.dart';
+import 'package:fluuter_boilerplate/application/local_notes/local_notes_bloc.dart';
 import 'package:fluuter_boilerplate/application/network_radio/networkradio_bloc.dart';
 import 'package:fluuter_boilerplate/infrastructure/language_repo/language_repo.dart';
+import 'package:fluuter_boilerplate/infrastructure/local_notes/local_notes_repo.dart';
 import 'package:fluuter_boilerplate/infrastructure/theme_repo/theme_repo.dart';
 import 'package:fluuter_boilerplate/screens/home_screen.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:uuid/uuid.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -21,6 +24,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     AddThemeRepository addThemeRepository = AddThemeRepository(hive: Hive);
     LanguageRepository languageRepository = LanguageRepository(hive: Hive);
+    LocalNotesRepository localNotesRepository =
+        LocalNotesRepository(hive: Hive, uuid: const Uuid());
     AudioPlayer audioPlayer = AudioPlayer();
     AudioCache audioCache = AudioCache();
 
@@ -49,6 +54,10 @@ class MyApp extends StatelessWidget {
           create: (context) => DeviceAudioBloc(
             audioPlayer: audioPlayer,
           ),
+        ),
+        BlocProvider<LocalNotesBloc>(
+          create: (context) =>
+              LocalNotesBloc(localNotesRepository: localNotesRepository),
         ),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(

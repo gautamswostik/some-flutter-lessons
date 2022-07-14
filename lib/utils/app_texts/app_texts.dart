@@ -10,6 +10,7 @@ class AppTexts {
   static const String camera = 'Camera';
   static const String map = 'Map';
   static const String qr = 'QR Scanner';
+  static const String localNotes = 'Local Notes';
 
   static const String darkModeAppTitle = 'Change Theme';
 
@@ -36,4 +37,14 @@ class AppTexts {
   static const String imagePreview = 'Image Preview';
   static const String cameraScreen = 'Camera Screen';
   static const String scannedData = 'Scanned Data';
+
+  //Local Notes
+  static const String notes = 'Notes';
+  static const String noNotes = 'No Notes Available';
+  static const String addNote = 'Add Note';
+  static const String title = 'Title';
+  static const String description = 'Description';
+  static const String titleRequired = 'Title is required';
+  static const String descriptionRequired = 'Description is required';
+  static const String fillAllFields = 'Fill all fields';
 }

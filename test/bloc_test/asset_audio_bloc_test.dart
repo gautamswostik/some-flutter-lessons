@@ -120,6 +120,10 @@ void main() {
           mockAudioPlayer.resume();
         },
       );
+      tearDown(() {
+        mockAssetAudioBloc.close();
+        mockAudioPlayer.dispose();
+      });
     },
   );
 }
