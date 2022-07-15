@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluuter_boilerplate/application/infinite_list/infinite_list_bloc.dart';
 import 'package:fluuter_boilerplate/screens/infinite_list/list_screen.dart';
+import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
+import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
 
 class InfiniteListScreen extends StatefulWidget {
   const InfiniteListScreen({Key? key}) : super(key: key);
@@ -23,7 +25,7 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Infinite List'),
+        title: Text(AppTexts.infiniteList.translateTo(context)),
       ),
       body: BlocBuilder<InfiniteListBloc, InfiniteListState>(
         builder: (context, state) {
