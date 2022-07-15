@@ -3,6 +3,7 @@ import 'package:fluuter_boilerplate/screens/app_theme/app_theme_screen.dart';
 import 'package:fluuter_boilerplate/screens/audio_player/audio_player_screen.dart';
 import 'package:fluuter_boilerplate/screens/camera/camera_screen.dart';
 import 'package:fluuter_boilerplate/screens/image_picker/image_picker_screen.dart';
+import 'package:fluuter_boilerplate/screens/infinite_list/infinite_list_screen.dart';
 import 'package:fluuter_boilerplate/screens/local_notes/local_notes_screen.dart';
 import 'package:fluuter_boilerplate/screens/localization/app_language_screen.dart';
 import 'package:fluuter_boilerplate/screens/map/map_screen.dart';
@@ -251,6 +252,30 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => const LocalNotesScreen(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.list,
+                    size: 35,
+                    color: Colors.black,
+                  ),
+                ),
+                title: Text(AppTexts.infiniteList.translateTo(context)),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const InfiniteListScreen(),
                     ),
                   );
                 },
