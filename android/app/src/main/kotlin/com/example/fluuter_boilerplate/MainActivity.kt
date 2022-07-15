@@ -37,9 +37,9 @@ class MainActivity: FlutterActivity() {
     MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNELTWO).setMethodCallHandler{
       call, result -> 
       if(call.method == "sendMyJoke"){
-        var name = sendMyJoke();
-        if (name !="") {
-          result.success(name)
+        var joke = sendMyJoke();
+        if (joke !="") {
+          result.success(joke)
         } else {
           result.error("UNAVAILABLE", "Something went wrong.", null)
         }
@@ -53,7 +53,7 @@ class MainActivity: FlutterActivity() {
   }
 
   private fun sendMyJoke() : String{
-    val name : String = "Where do pirates get their hooks?\nSecond hand stores.🤣"
-    return name;
+    val joke : String = "Where do pirates get their hooks?\nSecond hand stores.🤣"
+    return joke;
   }
 }
