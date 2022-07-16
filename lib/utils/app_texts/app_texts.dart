@@ -12,8 +12,8 @@ class AppTexts {
   static const String qr = 'QR Scanner';
   static const String localNotes = 'Local Notes';
   static const String androidMethodChannel = 'Android Method Channel';
+  static const String customPackage = 'Custom Package';
   static const String infiniteList = 'Infinite List';
-
   static const String darkModeAppTitle = 'Change Theme';
 
   static const String fizz = 'Fizz';
