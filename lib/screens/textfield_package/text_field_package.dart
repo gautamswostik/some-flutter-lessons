@@ -11,14 +11,6 @@ class PackageTextField extends StatefulWidget {
 }
 
 class _PackageTextFieldState extends State<PackageTextField> {
-  @override
-  void initState() {
-    textEditingController.addListener(() {
-      print(textEditingController.text);
-    });
-    super.initState();
-  }
-
   final TextEditingController textEditingController = TextEditingController();
   String onChangedString = '';
   @override

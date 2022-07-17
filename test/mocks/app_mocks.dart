@@ -2,7 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:fluuter_boilerplate/app_setup/languages/entity/language_entity.dart';
 import 'package:fluuter_boilerplate/application/app_theme/theme_cubit.dart';
 import 'package:fluuter_boilerplate/application/asset_audio/assetaudio_bloc.dart';
-import 'package:fluuter_boilerplate/application/devide_audio/deviceaudio_bloc.dart';
+import 'package:fluuter_boilerplate/application/device_audio/deviceaudio_bloc.dart';
 import 'package:fluuter_boilerplate/application/infinite_list/infinite_list_bloc.dart';
 import 'package:fluuter_boilerplate/application/languages/language_cubit.dart';
 import 'package:fluuter_boilerplate/application/local_notes/local_notes_bloc.dart';

@@ -15,7 +15,7 @@ import 'package:fluuter_boilerplate/application/app_theme/theme_cubit.dart'
     as _i3;
 import 'package:fluuter_boilerplate/application/asset_audio/assetaudio_bloc.dart'
     as _i9;
-import 'package:fluuter_boilerplate/application/devide_audio/deviceaudio_bloc.dart'
+import 'package:fluuter_boilerplate/application/device_audio/deviceaudio_bloc.dart'
     as _i10;
 import 'package:fluuter_boilerplate/application/infinite_list/infinite_list_bloc.dart'
     as _i17;

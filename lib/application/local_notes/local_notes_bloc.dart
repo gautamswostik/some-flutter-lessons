@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fluuter_boilerplate/infrastructure/local_notes/local_notes_repo.dart';
 import 'package:fluuter_boilerplate/infrastructure/local_notes/note_adapter/note_entities.dart';
-import 'package:hive_flutter/adapters.dart';
 
 part 'local_notes_event.dart';
 part 'local_notes_state.dart';

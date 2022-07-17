@@ -34,17 +34,19 @@ class _ListScreenState extends State<ListScreen> {
         children: <Widget>[
           ...widget.posts
               .map(
-                (post) => ListTile(
-                  title: Text(post.title),
-                  subtitle: Text(post.body),
+                (post) => Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                    color: Colors.black,
+                    width: 2,
+                  )),
+                  child: ListTile(
+                    title: Text(post.title),
+                    subtitle: Text(post.body),
+                  ),
                 ),
               )
               .toList(),
-          // for (final post in widget.posts)
-          //   ListTile(
-          //     title: Text(post.title),
-          //     subtitle: Text(post.body),
-          //   ),
           widget.isfetching
               ? const Center(
                   child: CircularProgressIndicator(

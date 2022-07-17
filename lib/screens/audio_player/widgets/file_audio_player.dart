@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluuter_boilerplate/application/devide_audio/deviceaudio_bloc.dart';
+import 'package:fluuter_boilerplate/application/device_audio/deviceaudio_bloc.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
 import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
 

@@ -14,6 +14,7 @@ class InfiniteListBloc extends Bloc<InfiniteListEvent, InfiniteListState> {
     on<GetPosts>(
       (event, emit) async {
         if (event.isInitialFetch) {
+          page = 1;
           emit(InfiniteListLoading());
         }
 

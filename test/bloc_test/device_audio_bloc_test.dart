@@ -1,7 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fluuter_boilerplate/application/devide_audio/deviceaudio_bloc.dart';
+import 'package:fluuter_boilerplate/application/device_audio/deviceaudio_bloc.dart';
 import 'package:mockito/mockito.dart';
 
 import '../mocks/app_mocks.mocks.dart';
