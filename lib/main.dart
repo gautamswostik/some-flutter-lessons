@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluuter_boilerplate/app/app.dart';
 import 'package:fluuter_boilerplate/app/bloc_observer.dart';
 import 'package:fluuter_boilerplate/app_setup/hive/hive_setup.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 List<CameraDescription> cameras = [];
 Future<void> main() async {
@@ -18,11 +19,28 @@ Future<void> main() async {
   } on CameraException catch (e) {
     debugPrint('Error in fetching the cameras: $e');
   }
+
   BlocOverrides.runZoned(
     () {
-      runApp(const MyApp());
+      runApp(ProviderScope(observers: [Logger()], child: const MyApp()));
       BlocOverrides.current;
     },
     blocObserver: AppBlocObserver(),
   );
+}
+
+class Logger extends ProviderObserver {
+  @override
+  void didUpdateProvider(
+    ProviderBase provider,
+    Object? previousValue,
+    Object? newValue,
+    ProviderContainer container,
+  ) {
+    print('''
+{
+  "provider": "${provider.name ?? provider.runtimeType}",
+  "newValue": "$newValue"
+}''');
+  }
 }

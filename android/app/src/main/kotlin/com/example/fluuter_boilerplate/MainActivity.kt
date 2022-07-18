@@ -57,3 +57,7 @@ class MainActivity: FlutterActivity() {
     return joke;
   }
 }
+
+FlutterStripe(
+  vlaues
+);
