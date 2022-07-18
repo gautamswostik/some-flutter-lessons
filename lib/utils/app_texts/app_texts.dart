@@ -12,6 +12,7 @@ class AppTexts {
   static const String qr = 'QR Scanner';
   static const String localNotes = 'Local Notes';
   static const String androidMethodChannel = 'Android Method Channel';
+  static const String learnBlocPatten = 'Learn Bloc Pattern';
   static const String customPackage = 'Custom Package';
   static const String infiniteList = 'Infinite List';
   static const String darkModeAppTitle = 'Change Theme';
@@ -45,8 +46,10 @@ class AppTexts {
   static const String noNotes = 'No Notes Available';
   static const String addNote = 'Add Note';
   static const String title = 'Title';
+  static const String number = 'Number';
   static const String description = 'Description';
   static const String titleRequired = 'Title is required';
+  static const String numberRequired = 'Number is required';
   static const String descriptionRequired = 'Description is required';
   static const String fillAllFields = 'Fill all fields';
 }
