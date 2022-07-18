@@ -13,6 +13,7 @@ class AppTexts {
   static const String localNotes = 'Local Notes';
   static const String androidMethodChannel = 'Android Method Channel';
   static const String learnBlocPatten = 'Learn Bloc Pattern';
+  static const String riverpod = 'Learn Riverpod';
   static const String customPackage = 'Custom Package';
   static const String infiniteList = 'Infinite List';
   static const String darkModeAppTitle = 'Change Theme';

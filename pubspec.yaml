@@ -54,6 +54,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   uuid: ^3.0.6
   dio: ^4.0.6
+  hooks_riverpod: ^1.0.4
 
   custom_textfield:
     path: packages/custom_textfield

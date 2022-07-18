@@ -97,9 +97,7 @@ class _LearnBlocScreenState extends State<LearnBlocScreen> {
                 return null;
               },
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             TextFormField(
               controller: num2,
               maxLines: null,
@@ -115,9 +113,7 @@ class _LearnBlocScreenState extends State<LearnBlocScreen> {
                 return null;
               },
             ),
-            const SizedBox(
-              height: 50,
-            ),
+            const SizedBox(height: 50),
             Center(
               child: BlocBuilder<LearnBlocBloc, LearnBlocState>(
                 builder: (context, state) {
