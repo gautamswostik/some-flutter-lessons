@@ -4,6 +4,7 @@ import 'package:fluuter_boilerplate/screens/audio_player/audio_player_screen.dar
 import 'package:fluuter_boilerplate/screens/camera/camera_screen.dart';
 import 'package:fluuter_boilerplate/screens/image_picker/image_picker_screen.dart';
 import 'package:fluuter_boilerplate/screens/infinite_list/infinite_list_screen.dart';
+import 'package:fluuter_boilerplate/screens/learn_bloc/bloc_learn_screen.dart';
 import 'package:fluuter_boilerplate/screens/local_notes/local_notes_screen.dart';
 import 'package:fluuter_boilerplate/screens/localization/app_language_screen.dart';
 import 'package:fluuter_boilerplate/screens/map/map_screen.dart';
@@ -41,6 +42,30 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Card(
+              child: ListTile(
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.note_add,
+                    size: 35,
+                    color: Colors.black,
+                  ),
+                ),
+                title: Text(AppTexts.learnBlocPatten.translateTo(context)),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const LearnBlocScreen(),
+                    ),
+                  );
+                },
+              ),
+            ),
             Card(
               child: ListTile(
                 leading: Container(
