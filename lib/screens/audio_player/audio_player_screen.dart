@@ -50,12 +50,6 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
       child: DefaultTabController(
         length: 3,
         child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              await launchInBrowser(GithubLinks.audioPlayerBranch);
-            },
-            child: const FaIcon(FontAwesomeIcons.github),
-          ),
           bottomNavigationBar: BottomNavigationBar(
             showSelectedLabels: true,
             items: <BottomNavigationBarItem>[

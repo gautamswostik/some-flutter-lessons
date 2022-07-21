@@ -21,12 +21,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            await launchInBrowser(GithubLinks.videoPlayerBranch);
-          },
-          child: const FaIcon(FontAwesomeIcons.github),
-        ),
         appBar: AppBar(
           title: Text(AppTexts.videoPlayer.translateTo(context)),
           bottom: TabBar(

@@ -21,12 +21,6 @@ class _AppLanguageState extends State<AppLanguage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await launchInBrowser(GithubLinks.languageBranch);
-        },
-        child: const FaIcon(FontAwesomeIcons.github),
-      ),
       appBar: AppBar(
         title: Text(AppTexts.languageAppTitle.translateTo(context)),
         actions: [

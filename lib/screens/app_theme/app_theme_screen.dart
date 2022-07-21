@@ -21,12 +21,6 @@ class _AppThemeState extends State<AppTheme> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await launchInBrowser(GithubLinks.darkModeBranch);
-        },
-        child: const FaIcon(FontAwesomeIcons.github),
-      ),
       appBar: AppBar(
         title: Text(AppTexts.darkModeAppTitle.translateTo(context)),
         actions: [

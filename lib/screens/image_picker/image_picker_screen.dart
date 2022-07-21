@@ -61,12 +61,6 @@ class _ImageAndVideoPickerState extends State<ImageAndVideoPicker> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await launchInBrowser(GithubLinks.imagePickerBranch);
-        },
-        child: const FaIcon(FontAwesomeIcons.github),
-      ),
       appBar: AppBar(
         title: Text(AppTexts.imagePicker.translateTo(context)),
         actions: [
