@@ -1,20 +1,30 @@
-name: flutter_boilerplate
+name: flutter_boilerplate[ana;uze and test]
 on:
-  pull_request:
+  push:
     branches:
       - main
-jobs:
-  flutter_test:
-    name: Run flutter test and analyze
-    runs-on: [ubuntu-latest, windows-latest]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: "12.x"
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: "stable"
-      - run: flutter clean && flutter pub get
-      - run: flutter analyze
-      - run: flutter test
+    pull_requests:
+      jobs:
+        lint:
+          name: Checking the code style
+          runs_on: ubuntu-latest
+          steps:
+            - name: Clone flutter repo
+              uses: subosito/flutter-action@v1
+              with:
+                flutter-version: '3.0.0'
+                channel: 'stable'
+
+            - name: Checkout code
+              used: actions/checkout@v2
+
+            - name: Install dependencies
+              run: |
+                flutter clean
+                flutter packages get
+
+            - name: analyze code
+              run: flutter analyze
+
+                
+                
