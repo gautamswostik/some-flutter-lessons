@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-    pull_requests:
+    pull_request:
       jobs:
         lint:
           name: Checking the code style
@@ -12,8 +12,8 @@ on:
             - name: Clone flutter repo
               uses: subosito/flutter-action@v1
               with:
-                flutter-version: '3.0.0'
-                channel: 'stable'
+                flutter-version: "3.0.0"
+                channel: "stable"
 
             - name: Checkout code
               used: actions/checkout@v2
@@ -25,6 +25,3 @@ on:
 
             - name: analyze code
               run: flutter analyze
-
-                
-                
