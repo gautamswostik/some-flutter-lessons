@@ -1,4 +1,4 @@
-name: flutter_boilerplate[ana;uze and test]
+name: flutter_boilerplate[analyze and test]
 on:
   pull_request:
     branches:
