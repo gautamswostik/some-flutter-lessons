@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluuter_boilerplate/application/app_theme/theme_cubit.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
-import 'package:fluuter_boilerplate/utils/app_texts/gitbub_links.dart';
-import 'package:fluuter_boilerplate/utils/extensions/functions.dart';
 import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppTheme extends StatefulWidget {
   const AppTheme({

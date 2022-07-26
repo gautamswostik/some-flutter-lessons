@@ -3,10 +3,7 @@ import 'package:fluuter_boilerplate/screens/video_player/widgets/device_video_pa
 import 'package:fluuter_boilerplate/screens/video_player/widgets/file_video_chooser.dart';
 import 'package:fluuter_boilerplate/screens/video_player/widgets/network_video_page.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
-import 'package:fluuter_boilerplate/utils/app_texts/gitbub_links.dart';
-import 'package:fluuter_boilerplate/utils/extensions/functions.dart';
 import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   const VideoPlayerScreen({Key? key}) : super(key: key);

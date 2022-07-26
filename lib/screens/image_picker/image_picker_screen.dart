@@ -2,10 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluuter_boilerplate/utils/app_texts/app_texts.dart';
-import 'package:fluuter_boilerplate/utils/app_texts/gitbub_links.dart';
-import 'package:fluuter_boilerplate/utils/extensions/functions.dart';
 import 'package:fluuter_boilerplate/utils/extensions/string_extensions.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageAndVideoPicker extends StatefulWidget {

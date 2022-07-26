@@ -505,6 +505,7 @@ class MockLanguageRepository extends _i1.Mock
 /// A class which mocks [LanguageEntity].
 ///
 /// See the documentation for Mockito's code generation for more information.
+// ignore: must_be_immutable
 class MockLanguageEntity extends _i1.Mock implements _i23.LanguageEntity {
   MockLanguageEntity() {
     _i1.throwOnMissingStub(this);
