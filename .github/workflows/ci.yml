@@ -22,7 +22,7 @@ jobs:
         run: flutter clean && flutter pub get
 
       - name: load env
-        run: echo "MAPBOXTOKEN=${{ secrets.MAPBOXTOKEN }}" > assets/env/.env
+        run: mkdir -p assets/env/ && echo "MAPBOXTOKEN=${{ secrets.MAPBOXTOKEN }}" > assets/env/.env
 
       - name: analyze code
         run: flutter analyze
