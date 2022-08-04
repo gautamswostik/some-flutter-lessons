@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final mathRepoProvider = Provider<IMathRepository>((ref) {
-  return MathRepository(ref.read);
+  return MathRepository();
 });
 
 abstract class IMathRepository {
@@ -12,8 +12,7 @@ abstract class IMathRepository {
 }
 
 class MathRepository extends IMathRepository {
-  MathRepository(this._reader);
-  final Reader _reader;
+  MathRepository();
 
   @override
   int add({required int a, required int b}) {

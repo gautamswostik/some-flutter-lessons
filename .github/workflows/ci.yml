@@ -1,30 +1,34 @@
-name: flutter_boilerplate[ana;uze and test]
+name: flutter_boilerplate[analyze and test]
 on:
-  push:
+  pull_request:
     branches:
       - main
-    pull_requests:
-      jobs:
-        lint:
-          name: Checking the code style
-          runs_on: ubuntu-latest
-          steps:
-            - name: Clone flutter repo
-              uses: subosito/flutter-action@v1
-              with:
-                flutter-version: '3.0.0'
-                channel: 'stable'
 
-            - name: Checkout code
-              used: actions/checkout@v2
+jobs:
+  lint:
+    name: Checking the code style
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone flutter repo
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "3.0.0"
+          channel: "stable"
 
-            - name: Install dependencies
-              run: |
-                flutter clean
-                flutter packages get
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-            - name: analyze code
-              run: flutter analyze
+      - name: Install dependencies
+        run: flutter clean && flutter pub get
 
-                
-                
+      - name: load env
+        run: mkdir -p assets/env/ && echo "MAPBOXTOKEN=${{ secrets.MAPBOXTOKEN }}" > assets/env/.env
+
+      - name: analyze code
+        run: flutter analyze
+# steps:
+#   - name: Hello world action
+#     with: # Set the secret as an input
+#       super_secret: ${{ secrets.SuperSecret }}
+#     env: # Or as an environment variable
+#       super_secret: ${{ secrets.SuperSecret }}
