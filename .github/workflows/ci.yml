@@ -21,5 +21,14 @@ jobs:
       - name: Install dependencies
         run: flutter clean && flutter pub get
 
+      - name: load env
+        run: echo "MAPBOXTOKEN=${{ secrets.MAPBOXTOKEN }}" > assets/env/.env
+
       - name: analyze code
         run: flutter analyze
+# steps:
+#   - name: Hello world action
+#     with: # Set the secret as an input
+#       super_secret: ${{ secrets.SuperSecret }}
+#     env: # Or as an environment variable
+#       super_secret: ${{ secrets.SuperSecret }}
