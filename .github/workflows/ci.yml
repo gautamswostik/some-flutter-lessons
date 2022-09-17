@@ -24,15 +24,12 @@ jobs:
       - name: Install dependencies
         run: flutter clean && flutter pub get
 
-  load_env_variable:
-    name: load env
-    steps: 
       - name: load env from secert
         run: mkdir -p assets/env/ && echo "MAPBOXTOKEN=${{ secrets.MAPBOXTOKEN }}" > assets/env/.env
 
   analyze_and_test:
     name: Run flutter analyze and flutter test
-    needs: [load_env_variable]
+    needs: [lint]
     steps:
       - name: analyze code
         run: flutter analyze
