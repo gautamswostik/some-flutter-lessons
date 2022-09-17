@@ -6,7 +6,7 @@ on:
 
 jobs:
   lint:
-    name: Checking the code style
+    name: Setup flutter and install dependencies
     runs-on: ubuntu-latest
     steps:
       - name: Clone flutter repo
@@ -18,20 +18,46 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: get java
+        uses: actions/setup-java@v1
+
       - name: Install dependencies
         run: flutter clean && flutter pub get
 
-      - name: load env
-        run: mkdir -p assets/env/ && echo "MAPBOXTOKEN=${{ secrets.MAPBOXTOKEN }}" > assets/env/.env
+  load_env_variable:
+    name: load env
+    run: mkdir -p assets/env/ && echo "MAPBOXTOKEN=${{ secrets.MAPBOXTOKEN }}" > assets/env/.env
 
+  analyze_and_test:
+    name: Run flutter analyze and flutter test
+    needs: [load_env_variable]
+    steps:
       - name: analyze code
         run: flutter analyze
 
       - name: test code
         run: flutter test
-# steps:
-#   - name: Hello world action
-#     with: # Set the secret as an input
-#       super_secret: ${{ secrets.SuperSecret }}
-#     env: # Or as an environment variable
-#       super_secret: ${{ secrets.SuperSecret }}
+
+  build_android:
+    name: Build Android (.aab && .apk)
+    needs: [analyze_and_test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: get java
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+      - name: Install dependencies
+        run: flutter clean && flutter pub get
+      
+      - name: build appbundle (.aab)
+        run: flutter build appbundle
+
+      -name: build apk (.apk)
+        run: flutter build apk --release
