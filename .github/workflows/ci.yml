@@ -23,14 +23,14 @@ jobs:
         with:
           java-version: "12.x"
 
-      - name: Install dependencies
-        run: flutter clean && flutter pub get
-
   analyze_and_test:
     name: Run flutter analyze and flutter test
     needs: [lint]
     runs-on: ubuntu-latest
     steps:
+      - name: Install dependencies
+        run: flutter clean && flutter pub get
+
       - name: load env from secert
         run: mkdir -p assets/env/ && echo "MAPBOXTOKEN=${{ secrets.MAPBOXTOKEN }}" > assets/env/.env
 
