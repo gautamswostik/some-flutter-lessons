@@ -30,6 +30,7 @@ jobs:
   analyze_and_test:
     name: Run flutter analyze and flutter test
     needs: [lint]
+    runs-on: ubuntu-latest
     steps:
       - name: analyze code
         run: flutter analyze
