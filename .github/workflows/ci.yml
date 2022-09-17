@@ -26,6 +26,9 @@ jobs:
 
       - name: analyze code
         run: flutter analyze
+
+      - name: test code
+        run: flutter test
 # steps:
 #   - name: Hello world action
 #     with: # Set the secret as an input
