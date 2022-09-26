@@ -115,7 +115,6 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             child: FlutterMap(
               mapController: mapController,
               options: MapOptions(
-                controller: mapController,
                 center: currentCenter,
                 zoom: currentZoom,
                 enableScrollWheel: true,
@@ -130,15 +129,15 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                   }
                 },
               ),
-              nonRotatedLayers: [
-                TileLayerOptions(
+              children: [
+                TileLayer(
                   urlTemplate: MapUrl.templteUrl,
                   additionalOptions: {
                     'accessToken': MapUrl.acceesToken,
                     'id': MapUrl.id,
                   },
                 ),
-                MarkerLayerOptions(
+                MarkerLayer(
                   markers: [
                     Marker(
                       point: currentLocation,
@@ -151,7 +150,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                       },
                     ),
                   ],
-                ),
+                )
               ],
             ),
           ),
@@ -165,7 +164,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 8,
-                    primary: const Color.fromARGB(255, 36, 34, 34),
+                    backgroundColor: const Color.fromARGB(255, 36, 34, 34),
                     shape: const CircleBorder(),
                     minimumSize: const Size(35, 35),
                   ),
@@ -180,7 +179,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 8,
-                    primary: const Color.fromARGB(255, 36, 34, 34),
+                    backgroundColor: const Color.fromARGB(255, 36, 34, 34),
                     shape: const CircleBorder(),
                     minimumSize: const Size(35, 35),
                   ),

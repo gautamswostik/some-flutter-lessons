@@ -15,49 +15,49 @@ import android.os.Build.VERSION_CODES
 
 
 class MainActivity: FlutterActivity() {
-  private val CHANNELONE = "samples.flutter.dev/hello"
-  private val CHANNELTWO = "samples.flutter.dev/yourname"
+  // private val CHANNELONE = "samples.flutter.dev/hello"
+  // private val CHANNELTWO = "samples.flutter.dev/yourname"
 
-  override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
-    super.configureFlutterEngine(flutterEngine)
-    MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNELONE).setMethodCallHandler {
-      call, result ->
-      if (call.method == "sendHelloFromTheOtherSide") {
-        val hello = sendHelloToOtherSide()
+  // override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
+  //   super.configureFlutterEngine(flutterEngine)
+  //   MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNELONE).setMethodCallHandler {
+  //     call, result ->
+  //     if (call.method == "sendHelloFromTheOtherSide") {
+  //       val hello = sendHelloToOtherSide()
 
-        if (hello !="") {
-          result.success(hello)
-        } else {
-          result.error("UNAVAILABLE", "Something went wrong.", null)
-        }
-      } else {
-        result.notImplemented()
-      }
-    }
-    MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNELTWO).setMethodCallHandler{
-      call, result -> 
-      if(call.method == "sendMyJoke"){
-        var joke = sendMyJoke();
-        if (joke !="") {
-          result.success(joke)
-        } else {
-          result.error("UNAVAILABLE", "Something went wrong.", null)
-        }
-      }
-    }
-  }
+  //       if (hello !="") {
+  //         result.success(hello)
+  //       } else {
+  //         result.error("UNAVAILABLE", "Something went wrong.", null)
+  //       }
+  //     } else {
+  //       result.notImplemented()
+  //     }
+  //   }
+  //   MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNELTWO).setMethodCallHandler{
+  //     call, result -> 
+  //     if(call.method == "sendMyJoke"){
+  //       var joke = sendMyJoke();
+  //       if (joke !="") {
+  //         result.success(joke)
+  //       } else {
+  //         result.error("UNAVAILABLE", "Something went wrong.", null)
+  //       }
+  //     }
+  //   }
+  // }
 
-  private fun sendHelloToOtherSide(): String {
-    val hello: String = "Hello From Android 👋";
-    return hello;
-  }
+  // private fun sendHelloToOtherSide(): String {
+  //   val hello: String = "Hello From Android 👋";
+  //   return hello;
+  // }
 
-  private fun sendMyJoke() : String{
-    val joke : String = "Where do pirates get their hooks?\nSecond hand stores.🤣"
-    return joke;
-  }
+  // private fun sendMyJoke() : String{
+  //   val joke : String = "Where do pirates get their hooks?\nSecond hand stores.🤣"
+  //   return joke;
+  // }
 }
 
-FlutterStripe(
-  vlaues
-);
+// FlutterStripe(
+//   vlaues
+// );

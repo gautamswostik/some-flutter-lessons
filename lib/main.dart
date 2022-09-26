@@ -14,19 +14,14 @@ Future<void> main() async {
   await dotenv.load(fileName: 'assets/env/.env');
   await HiveSetup.initHive();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  Bloc.observer = AppBlocObserver();
   try {
     cameras = await availableCameras();
   } on CameraException catch (e) {
     debugPrint('Error in fetching the cameras: $e');
   }
 
-  BlocOverrides.runZoned(
-    () {
-      runApp(ProviderScope(observers: [Logger()], child: const MyApp()));
-      BlocOverrides.current;
-    },
-    blocObserver: AppBlocObserver(),
-  );
+  runApp(ProviderScope(observers: [Logger()], child: const MyApp()));
 }
 
 class Logger extends ProviderObserver {

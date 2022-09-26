@@ -66,8 +66,8 @@ class _FileVideoPlayerState extends State<FileVideoPlayer> {
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),
                       padding: const EdgeInsets.all(10),
-                      primary: Colors.white,
-                      onPrimary: Colors.black,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
                     ),
                     child: Icon(
                       _controller.value.isPlaying

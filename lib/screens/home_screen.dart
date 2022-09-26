@@ -356,30 +356,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
-            Card(
-              child: ListTile(
-                leading: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: const Icon(
-                    Icons.note_add,
-                    size: 35,
-                    color: Colors.black,
-                  ),
-                ),
-                title: Text(AppTexts.androidMethodChannel.translateTo(context)),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const MethodChannelExamples(),
-                    ),
-                  );
-                },
-              ),
-            ),
+            // Card(
+            //   child: ListTile(
+            //     leading: Container(
+            //       width: 50,
+            //       height: 50,
+            //       decoration: const BoxDecoration(
+            //         color: Colors.white,
+            //       ),
+            //       child: const Icon(
+            //         Icons.note_add,
+            //         size: 35,
+            //         color: Colors.black,
+            //       ),
+            //     ),
+            //     title: Text(AppTexts.androidMethodChannel.translateTo(context)),
+            //     onTap: () {
+            //       Navigator.of(context).push(
+            //         MaterialPageRoute(
+            //           builder: (context) => const MethodChannelExamples(),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),
