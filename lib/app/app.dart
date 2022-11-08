@@ -17,6 +17,7 @@ import 'package:fluuter_boilerplate/infrastructure/language_repo/language_repo.d
 import 'package:fluuter_boilerplate/infrastructure/local_notes/local_notes_repo.dart';
 import 'package:fluuter_boilerplate/infrastructure/theme_repo/theme_repo.dart';
 import 'package:fluuter_boilerplate/screens/home_screen.dart';
+import 'package:fluuter_boilerplate/utils/common_mixin/wid_mixin.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:uuid/uuid.dart';
 
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
                   return MaterialApp(
                     debugShowCheckedModeBanner: false,
                     home: HomeScreen(themeValue: themeState.isDarkValue),
+                    // home: WidWithMixin(),
                     theme: themeState.isDark,
                     themeMode: ThemeMode.system,
                     supportedLocales: [
@@ -107,4 +109,34 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+class WidWithMixin extends StatefulWidget {
+  const WidWithMixin({Key? key}) : super(key: key);
+
+  @override
+  State<WidWithMixin> createState() => _WidWithMixinState();
+}
+
+class _WidWithMixinState extends State<WidWithMixin> with CustomScaffold {
+  @override
+  Widget body() {
+    return ListView.builder(
+      itemCount: 200,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(
+            index.toString(),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  String get title => "Hello world";
+
+  @override
+  Color get appbarColor =>
+      Theme.of(context).appBarTheme.backgroundColor ?? Colors.pink;
 }

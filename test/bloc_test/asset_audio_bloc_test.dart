@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/services.dart';
@@ -55,7 +53,7 @@ void main() {
         setUp: () async {
           when(mockAudioPlayer.state).thenAnswer((_) => PlayerState.stopped);
           String audioasset = "assets/sounds/Sunflower_Bloom_better.mp3";
-          ByteData bytes =
+          ByteData bytes =  
               await rootBundle.load(audioasset); //load sound from assets
           Uint8List soundbytes = bytes.buffer
               .asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
