@@ -15,6 +15,14 @@ class AppTheme extends StatefulWidget {
 }
 
 class _AppThemeState extends State<AppTheme> {
+  bool themeValue = false;
+
+  @override
+  void initState() {
+    themeValue = widget.themeValue;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +30,12 @@ class _AppThemeState extends State<AppTheme> {
         title: Text(AppTexts.darkModeAppTitle.translateTo(context)),
         actions: [
           Switch(
-            value: widget.themeValue,
+            value: themeValue,
             onChanged: (value) {
-              BlocProvider.of<ThemeCubit>(context).toggleTheme(value);
+              setState(() {
+                themeValue = !themeValue;
+              });
+              BlocProvider.of<ThemeCubit>(context).toggleTheme(themeValue);
             },
           ),
         ],
@@ -36,13 +47,15 @@ class _AppThemeState extends State<AppTheme> {
           int num = index + 1;
           if (num % 3 == 0 && num % 5 == 0) {
             return const Text(AppTexts.fizzBuzz);
-          } else if (num % 3 == 0) {
-            return const Text(AppTexts.fizz);
-          } else if (num % 5 == 0) {
-            return const Text(AppTexts.buzz);
-          } else {
-            return Text("$num");
           }
+          if (num % 3 == 0) {
+            return const Text(AppTexts.fizz);
+          }
+          if (num % 5 == 0) {
+            return const Text(AppTexts.buzz);
+          }
+
+          return Text("$num");
         },
       ),
     );
