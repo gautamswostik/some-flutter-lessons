@@ -54,9 +54,13 @@ dependencies:
   uuid: ^3.0.6
   dio: ^4.0.6
   hooks_riverpod: ^1.0.4
+  qr_flutter: ^4.0.0
 
+  
   custom_textfield:
     path: packages/custom_textfield
+  share_plus: ^6.3.0
+  
 
 dev_dependencies:
   flutter_test:
