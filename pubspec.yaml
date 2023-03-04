@@ -60,6 +60,9 @@ dependencies:
   custom_textfield:
     path: packages/custom_textfield
   share_plus: ^6.3.0
+  firebase_messaging: ^14.2.5
+  firebase_core: ^2.7.0
+  flutter_local_notifications: ^9.5.3+1
   
 
 dev_dependencies:

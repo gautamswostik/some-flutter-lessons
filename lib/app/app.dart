@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,13 +19,25 @@ import 'package:fluuter_boilerplate/infrastructure/infinite_list_repo/infinite_l
 import 'package:fluuter_boilerplate/infrastructure/language_repo/language_repo.dart';
 import 'package:fluuter_boilerplate/infrastructure/local_notes/local_notes_repo.dart';
 import 'package:fluuter_boilerplate/infrastructure/theme_repo/theme_repo.dart';
+import 'package:fluuter_boilerplate/notification_service.dart';
 import 'package:fluuter_boilerplate/screens/home_screen.dart';
 import 'package:fluuter_boilerplate/utils/common_mixin/wid_mixin.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:uuid/uuid.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    listenNotification();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +123,25 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void listenNotification() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      Map<String, dynamic> data = message.data;
+      final FLutterBoilerPlateNotificationService _notificationService =
+          FLutterBoilerPlateNotificationService();
+      // _notificationService.showNotifications(
+      //     " message.notification!.title", "S");
+
+      if (data.containsKey("image")) {
+        _notificationService.showImageNotification(
+            data["image"], data["title"], data["message"]);
+      } else {
+        _notificationService.showNotifications(data["title"], data["message"]);
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((message) async {});
   }
 }
 

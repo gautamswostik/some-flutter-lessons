@@ -34,43 +34,47 @@ mixin _$PostModel {
 /// @nodoc
 abstract class $PostModelCopyWith<$Res> {
   factory $PostModelCopyWith(PostModel value, $Res Function(PostModel) then) =
-      _$PostModelCopyWithImpl<$Res>;
+      _$PostModelCopyWithImpl<$Res, PostModel>;
+  @useResult
   $Res call({int userId, int id, String title, String body});
 }
 
 /// @nodoc
-class _$PostModelCopyWithImpl<$Res> implements $PostModelCopyWith<$Res> {
+class _$PostModelCopyWithImpl<$Res, $Val extends PostModel>
+    implements $PostModelCopyWith<$Res> {
   _$PostModelCopyWithImpl(this._value, this._then);
 
-  final PostModel _value;
   // ignore: unused_field
-  final $Res Function(PostModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = freezed,
-    Object? id = freezed,
-    Object? title = freezed,
-    Object? body = freezed,
+    Object? userId = null,
+    Object? id = null,
+    Object? title = null,
+    Object? body = null,
   }) {
     return _then(_value.copyWith(
-      userId: userId == freezed
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      body: body == freezed
+      body: null == body
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -80,40 +84,40 @@ abstract class _$$_PostModelCopyWith<$Res> implements $PostModelCopyWith<$Res> {
           _$_PostModel value, $Res Function(_$_PostModel) then) =
       __$$_PostModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int userId, int id, String title, String body});
 }
 
 /// @nodoc
-class __$$_PostModelCopyWithImpl<$Res> extends _$PostModelCopyWithImpl<$Res>
+class __$$_PostModelCopyWithImpl<$Res>
+    extends _$PostModelCopyWithImpl<$Res, _$_PostModel>
     implements _$$_PostModelCopyWith<$Res> {
   __$$_PostModelCopyWithImpl(
       _$_PostModel _value, $Res Function(_$_PostModel) _then)
-      : super(_value, (v) => _then(v as _$_PostModel));
+      : super(_value, _then);
 
-  @override
-  _$_PostModel get _value => super._value as _$_PostModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = freezed,
-    Object? id = freezed,
-    Object? title = freezed,
-    Object? body = freezed,
+    Object? userId = null,
+    Object? id = null,
+    Object? title = null,
+    Object? body = null,
   }) {
     return _then(_$_PostModel(
-      userId: userId == freezed
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      body: body == freezed
+      body: null == body
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
@@ -153,29 +157,27 @@ class _$_PostModel implements _PostModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PostModel &&
-            const DeepCollectionEquality().equals(other.userId, userId) &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.body, body));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.body, body) || other.body == body));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(userId),
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(body));
+  int get hashCode => Object.hash(runtimeType, userId, id, title, body);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PostModelCopyWith<_$_PostModel> get copyWith =>
       __$$_PostModelCopyWithImpl<_$_PostModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PostModelToJson(this);
+    return _$$_PostModelToJson(
+      this,
+    );
   }
 }
 
